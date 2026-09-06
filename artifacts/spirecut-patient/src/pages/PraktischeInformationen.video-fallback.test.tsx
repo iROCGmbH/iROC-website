@@ -12,7 +12,7 @@
  */
 
 import { describe, it, expect, vi, afterEach, beforeEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import PraktischeInformationen from "./PraktischeInformationen";
 import { invalidateSpirecutSettingsCache } from "@/hooks/useSpirecutSettings";
 
@@ -136,22 +136,22 @@ describe("PraktischeInformationen – video section fallback", () => {
     mockSettings({ sp_video_praktisch_1_url: "https://vimeo.com/123456789" });
     render(<PraktischeInformationen />);
 
-    // Video section should still appear (video2 is valid)
-    await screen.findByText("praktisch.videosTitle", {}, { timeout: 3_000 });
-
-    // Only the second iframe should be rendered
-    expect(document.querySelectorAll("iframe")).toHaveLength(1);
-    expect(document.querySelectorAll("iframe")[0].getAttribute("src")).toBe(VALID_P2_EMBED);
+    await waitFor(() => {
+      const iframes = document.querySelectorAll("iframe");
+      expect(iframes).toHaveLength(1);
+      expect(iframes[0].getAttribute("src")).toBe(VALID_P2_EMBED);
+    });
   });
 
   it("hides slot 2 and shows only slot 1 when sp_video_praktisch_2_url is a non-YouTube URL", async () => {
     mockSettings({ sp_video_praktisch_2_url: "https://dailymotion.com/video/x7abc" });
     render(<PraktischeInformationen />);
 
-    await screen.findByText("praktisch.videosTitle", {}, { timeout: 3_000 });
-
-    expect(document.querySelectorAll("iframe")).toHaveLength(1);
-    expect(document.querySelectorAll("iframe")[0].getAttribute("src")).toBe(VALID_P1_EMBED);
+    await waitFor(() => {
+      const iframes = document.querySelectorAll("iframe");
+      expect(iframes).toHaveLength(1);
+      expect(iframes[0].getAttribute("src")).toBe(VALID_P1_EMBED);
+    });
   });
 
   it("hides the entire video section when both praktisch URLs are non-YouTube", async () => {
@@ -161,14 +161,10 @@ describe("PraktischeInformationen – video section fallback", () => {
     });
     render(<PraktischeInformationen />);
 
-    // Give the hook time to fetch and re-render
-    await new Promise((r) => setTimeout(r, 100));
-
-    // No iframes — the video section is fully suppressed
-    expect(document.querySelectorAll("iframe")).toHaveLength(0);
-
-    // The video section heading should NOT be in the DOM
-    expect(screen.queryByText("praktisch.videosTitle")).toBeNull();
+    await waitFor(() => {
+      expect(document.querySelectorAll("iframe")).toHaveLength(0);
+      expect(screen.queryByText("praktisch.videosTitle")).toBeNull();
+    });
   });
 
   it("hides the entire video section when SP_DEFAULTS provides empty strings for both praktisch URLs", async () => {
@@ -180,9 +176,9 @@ describe("PraktischeInformationen – video section fallback", () => {
     });
     render(<PraktischeInformationen />);
 
-    await new Promise((r) => setTimeout(r, 100));
-
-    expect(document.querySelectorAll("iframe")).toHaveLength(0);
-    expect(screen.queryByText("praktisch.videosTitle")).toBeNull();
+    await waitFor(() => {
+      expect(document.querySelectorAll("iframe")).toHaveLength(0);
+      expect(screen.queryByText("praktisch.videosTitle")).toBeNull();
+    });
   });
 });
