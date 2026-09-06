@@ -1,0 +1,3910 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: iROC GmbH website API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: customers
+    description: Customer registration
+  - name: orders
+    description: Product orders
+  - name: training
+    description: Training registration and dates
+  - name: auth
+    description: Doctor login
+  - name: doctors
+    description: Trained doctors list
+  - name: resources
+    description: Doctor portal resources
+  - name: admin
+    description: Admin operations
+  - name: team
+    description: iROC team members
+  - name: storage
+    description: Object storage upload URLs
+  - name: gemini
+    description: Gemini AI chat and image operations
+  - name: portal
+    description: iROC customer/doctor self-service portal
+
+paths:
+  /patient-testimonials:
+    get:
+      operationId: listPatientTestimonials
+      tags: [patients]
+      summary: List published Spirecut patient video testimonials
+      responses:
+        "200":
+          description: Published testimonials in display order
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PatientTestimonial"
+
+  /admin/patient-testimonials:
+    get:
+      operationId: listAdminPatientTestimonials
+      tags: [admin]
+      summary: List all patient video testimonials, including drafts
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Testimonial list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PatientTestimonial"
+    post:
+      operationId: createPatientTestimonial
+      tags: [admin]
+      summary: Create a patient video testimonial
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatientTestimonialInput"
+      responses:
+        "201":
+          description: Testimonial created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PatientTestimonial"
+        "400":
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /admin/patient-testimonials/{id}:
+    patch:
+      operationId: updatePatientTestimonial
+      tags: [admin]
+      summary: Update any testimonial fields
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatientTestimonialPatch"
+      responses:
+        "200":
+          description: Testimonial updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PatientTestimonial"
+        "400":
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Testimonial not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      operationId: deletePatientTestimonial
+      tags: [admin]
+      summary: Delete a patient video testimonial
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Testimonial deleted
+        "404":
+          description: Testimonial not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /team:
+    get:
+      operationId: listTeamMembers
+      tags: [team]
+      summary: List all team members
+      responses:
+        "200":
+          description: Team member list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TeamMember"
+
+  /admin/team:
+    post:
+      operationId: createTeamMember
+      tags: [team, admin]
+      summary: Create a new team member (admin)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TeamMemberInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TeamMember"
+
+  /admin/team/{id}:
+    patch:
+      operationId: updateTeamMember
+      tags: [team, admin]
+      summary: Update a team member (admin)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TeamMemberInput"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TeamMember"
+    delete:
+      operationId: deleteTeamMember
+      tags: [team, admin]
+      summary: Delete a team member (admin)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  /storage/uploads/request-url:
+    post:
+      operationId: requestUploadUrl
+      tags: [storage]
+      summary: Request a presigned GCS upload URL (admin)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RequestUploadUrlBody"
+      responses:
+        "200":
+          description: Presigned URL
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RequestUploadUrlResponse"
+
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /certified-doctors:
+    get:
+      operationId: listCertifiedDoctors
+      tags: [doctors]
+      summary: Public list of certified doctors for the treating-doctor dropdown
+      parameters:
+        - in: query
+          name: instrument
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+          description: Filter to doctors certified for these instrument/product groups. If omitted, all doctors are returned.
+      responses:
+        "200":
+          description: List of certified doctors
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CertifiedDoctorItem"
+
+  /customers/register:
+    post:
+      operationId: registerCustomer
+      tags: [customers]
+      summary: Register a new customer and send email to iROC
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CustomerRegistrationInput"
+      responses:
+        "201":
+          description: Customer registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /orders:
+    post:
+      operationId: submitOrder
+      tags: [orders]
+      summary: Submit a product order (new or existing customer)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderInput"
+      responses:
+        "201":
+          description: Order submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /training/dates:
+    get:
+      operationId: getTrainingDates
+      tags: [training]
+      summary: Get all upcoming training dates
+      responses:
+        "200":
+          description: List of training dates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TrainingDate"
+
+  /training/register:
+    post:
+      operationId: registerForTraining
+      tags: [training]
+      summary: Register a doctor for a training session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TrainingRegistrationInput"
+      responses:
+        "201":
+          description: Training registration successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /auth/login:
+    post:
+      operationId: doctorLogin
+      tags: [auth]
+      summary: Doctor login with provided password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginInput"
+      responses:
+        "200":
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+        "401":
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /auth/logout:
+    post:
+      operationId: doctorLogout
+      tags: [auth]
+      summary: Doctor logout
+      responses:
+        "200":
+          description: Logged out
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  /auth/me:
+    get:
+      operationId: getMe
+      tags: [auth]
+      summary: Get current session info
+      responses:
+        "200":
+          description: Session info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SessionInfo"
+        "401":
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /doctors:
+    get:
+      operationId: listTrainedDoctors
+      tags: [doctors]
+      summary: Get list of trained doctors
+      parameters:
+        - name: instrument
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of trained doctors
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TrainedDoctor"
+
+  /geocode-postal:
+    get:
+      operationId: geocodePostal
+      tags: [doctors]
+      summary: Geocode a postal code for nearby-doctor searches
+      parameters:
+        - name: postal
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: country
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Country name or ISO alpha-2 code
+      responses:
+        "200":
+          description: Postal-code coordinates
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeoCoordinates"
+        "400":
+          description: Invalid postal code or country
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Postal code not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /resources:
+    get:
+      operationId: listResources
+      tags: [resources]
+      summary: Get doctor portal resources (requires authentication)
+      parameters:
+        - name: instrument
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [spirecut, ministem]
+        - name: type
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [presentation, study, video, link]
+      responses:
+        "200":
+          description: List of resources
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Resource"
+        "401":
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /admin/training-dates:
+    post:
+      operationId: createTrainingDate
+      tags: [admin]
+      summary: Admin - create a training date
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TrainingDateInput"
+      responses:
+        "201":
+          description: Training date created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TrainingDate"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /admin/training-dates/{id}:
+    delete:
+      operationId: deleteTrainingDate
+      tags: [admin]
+      summary: Admin - delete a training date
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Training date deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /admin/doctors:
+    post:
+      operationId: createTrainedDoctor
+      tags: [admin]
+      summary: Admin - add a trained doctor to the public list
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TrainedDoctorInput"
+      responses:
+        "201":
+          description: Doctor added
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TrainedDoctor"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /admin/doctors/{id}:
+    patch:
+      operationId: updateTrainedDoctor
+      tags: [admin]
+      summary: Admin - update a trained doctor's full record
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TrainedDoctorInput"
+      responses:
+        "200":
+          description: Doctor updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TrainedDoctor"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      operationId: deleteTrainedDoctor
+      tags: [admin]
+      summary: Admin - remove a trained doctor
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Doctor removed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /admin/training-registrations:
+    get:
+      operationId: listTrainingRegistrations
+      tags: [admin]
+      summary: Admin - list all training registrations
+      responses:
+        "200":
+          description: List of training registrations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TrainingRegistration"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /admin/training-registrations/{id}/certify:
+    post:
+      operationId: certifyTrainingRegistration
+      tags: [admin]
+      summary: Admin - promote a training registrant to the certified doctors list
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CertifyRegistrationInput"
+      responses:
+        "201":
+          description: Doctor certified and added to the public list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TrainedDoctor"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Registration not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /admin/training-registrations/{id}/confirm:
+    post:
+      operationId: confirmTrainingRegistration
+      tags: [admin]
+      summary: Admin - confirm a training registration and synchronize its lead
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Registration confirmed and lead synchronized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConfirmTrainingRegistrationResponse"
+        "400":
+          description: Invalid registration ID
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Registration not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: Registration cannot be confirmed from its current status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: Registration is missing required synchronization data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /admin/resources:
+    post:
+      operationId: createResource
+      tags: [admin]
+      summary: Admin - add a resource to the doctor portal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResourceInput"
+      responses:
+        "201":
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Resource"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /admin/resources/{id}:
+    delete:
+      operationId: deleteResource
+      tags: [admin]
+      summary: Admin - remove a resource
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Resource removed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  # ── iROC App: Auth ───────────────────────────────────────────────────────────
+  /iroc/login:
+    post:
+      operationId: irocLogin
+      tags: [iroc-auth]
+      summary: Log in to the iROC inventory app
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IrocLoginInput"
+      responses:
+        "200":
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IrocLoginResponse"
+        "401":
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /iroc/me:
+    get:
+      operationId: getIrocMe
+      tags: [iroc-auth]
+      summary: Get current iROC app session
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Session info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IrocSession"
+        "401":
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    patch:
+      operationId: updateIrocMe
+      tags: [iroc-auth]
+      summary: Update the current iROC app username
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateIrocSessionInput"
+      responses:
+        "200":
+          description: Updated session with replacement token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateIrocSessionResponse"
+        "400":
+          description: Invalid username
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: Username already in use
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /iroc/password:
+    patch:
+      operationId: changeIrocPassword
+      tags: [iroc-auth]
+      summary: Change the current iROC app password
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChangeIrocPasswordInput"
+      responses:
+        "200":
+          description: Password changed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChangeIrocPasswordResponse"
+        "400":
+          description: Invalid password data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Current password is incorrect or not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  # ── iROC App: Dashboard ───────────────────────────────────────────────────────
+  /iroc/dashboard:
+    get:
+      operationId: getIrocDashboard
+      tags: [iroc-dashboard]
+      summary: Get dashboard summary stats
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Dashboard summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppDashboard"
+
+  # ── iROC App: Customers ───────────────────────────────────────────────────────
+  /iroc/customers:
+    get:
+      operationId: listIrocCustomers
+      tags: [iroc-customers]
+      summary: List all customers
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Customer list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AppCustomer"
+    post:
+      operationId: createIrocCustomer
+      tags: [iroc-customers]
+      summary: Create a customer
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppCustomerInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppCustomer"
+
+  /iroc/customers/{id}:
+    get:
+      operationId: getIrocCustomer
+      tags: [iroc-customers]
+      summary: Get a customer by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Customer
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppCustomer"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    patch:
+      operationId: updateIrocCustomer
+      tags: [iroc-customers]
+      summary: Update a customer
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppCustomerInput"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppCustomer"
+    delete:
+      operationId: deleteIrocCustomer
+      tags: [iroc-customers]
+      summary: Delete a customer
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  # ── iROC App: Product groups ─────────────────────────────────────────────────
+  /iroc/product-groups:
+    get:
+      operationId: listIrocProductGroups
+      tags: [iroc-products]
+      summary: List product groups
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Product group list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AppProductGroup"
+    post:
+      operationId: createIrocProductGroup
+      tags: [iroc-products]
+      summary: Create a product group
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppProductGroupInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppProductGroup"
+
+  /iroc/product-groups/{id}:
+    patch:
+      operationId: updateIrocProductGroup
+      tags: [iroc-products]
+      summary: Update a product group (renaming the key propagates to all products in the group)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppProductGroupInput"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppProductGroup"
+    delete:
+      operationId: deleteIrocProductGroup
+      tags: [iroc-products]
+      summary: Delete a product group (only if it has no products)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  /product-groups-public:
+    get:
+      operationId: listProductGroupsPublic
+      tags: [iroc-products]
+      summary: Public list of non-service product groups for the website order form
+      responses:
+        "200":
+          description: Ordered product groups
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AppProductGroup"
+
+  # ── iROC App: Products ────────────────────────────────────────────────────────
+  /iroc/products:
+    get:
+      operationId: listIrocProducts
+      tags: [iroc-products]
+      summary: List all products
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Product list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AppProduct"
+    post:
+      operationId: createIrocProduct
+      tags: [iroc-products]
+      summary: Create a product
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppProductInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppProduct"
+
+  /iroc/products/{id}:
+    get:
+      operationId: getIrocProduct
+      tags: [iroc-products]
+      summary: Get a product by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Product
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppProduct"
+    patch:
+      operationId: updateIrocProduct
+      tags: [iroc-products]
+      summary: Update a product
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppProductInput"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppProduct"
+    delete:
+      operationId: deleteIrocProduct
+      tags: [iroc-products]
+      summary: Delete a product
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  /iroc/products/{id}/stock:
+    patch:
+      operationId: adjustIrocProductStock
+      tags: [iroc-products]
+      summary: Adjust product stock level
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppStockAdjust"
+      responses:
+        "200":
+          description: Updated product
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppProduct"
+
+  # ── iROC App: Invoices ────────────────────────────────────────────────────────
+  /iroc/invoices:
+    get:
+      operationId: listIrocInvoices
+      tags: [iroc-invoices]
+      summary: List all invoices
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Invoice list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AppInvoice"
+    post:
+      operationId: createIrocInvoice
+      tags: [iroc-invoices]
+      summary: Create an invoice
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppInvoiceInput"
+      responses:
+        "201":
+          description: Created invoice with items
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppInvoiceFull"
+
+  /iroc/invoices/{id}:
+    get:
+      operationId: getIrocInvoice
+      tags: [iroc-invoices]
+      summary: Get an invoice with line items
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Invoice with items
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppInvoiceFull"
+    delete:
+      operationId: deleteIrocInvoice
+      tags: [iroc-invoices]
+      summary: Delete an invoice
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  /iroc/invoices/{id}/corrections:
+    post:
+      operationId: createIrocInvoiceCorrection
+      tags: [iroc-invoices]
+      summary: Create a draft Rechnungskorrektur / Invoice correction for returned products
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppInvoiceCorrectionInput"
+      responses:
+        "201":
+          description: Separately numbered linked correction draft
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppInvoiceFull"
+        "409":
+          description: Invoice is not finalized or quantities were already corrected
+
+  /iroc/invoices/{id}/shipping-rates:
+    get:
+      operationId: getIrocInvoiceShippingRates
+      tags: [iroc-invoices]
+      summary: Get Sendcloud rates for a draft invoice
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+        - name: weightKg
+          in: query
+          required: true
+          schema: { type: number, exclusiveMinimum: 0 }
+        - name: lengthCm
+          in: query
+          schema: { type: number, exclusiveMinimum: 0 }
+        - name: widthCm
+          in: query
+          schema: { type: number, exclusiveMinimum: 0 }
+        - name: heightCm
+          in: query
+          schema: { type: number, exclusiveMinimum: 0 }
+        - name: includeInsurance
+          in: query
+          schema: { type: boolean, default: true }
+      responses:
+        "200":
+          description: Available shipping rates
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IrocShippingRatesResponse"
+
+  /iroc/invoices/{id}/shipment:
+    post:
+      operationId: createIrocInvoiceShipment
+      tags: [iroc-invoices]
+      summary: Confirm and create a Sendcloud shipment for a draft invoice
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IrocShipmentInput"
+      responses:
+        "201":
+          description: Shipment created and invoice shipping costs updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IrocShipmentResponse"
+
+  /iroc/invoices/{id}/status:
+    patch:
+      operationId: updateIrocInvoiceStatus
+      tags: [iroc-invoices]
+      summary: Update invoice status
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppInvoiceStatusUpdate"
+      responses:
+        "200":
+          description: Updated invoice
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppInvoice"
+
+  /iroc/leads/{id}/training-offer-pdf:
+    post:
+      operationId: createLeadTrainingOfferPdf
+      tags: [iroc-leads, iroc-invoices]
+      summary: Generate and save an immutable training offer for a lead
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TrainingOfferInput"
+      responses:
+        "200":
+          description: Saved training offer PDF
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        "409":
+          description: The lead already has a saved training offer
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    get:
+      operationId: downloadLeadTrainingOfferPdf
+      tags: [iroc-leads, iroc-invoices]
+      summary: Re-download a lead's saved immutable training offer
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Saved training offer PDF
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        "404":
+          description: Saved training offer not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /iroc/training-offers/{id}:
+    get:
+      operationId: getIrocTrainingOffer
+      tags: [iroc-leads, iroc-invoices]
+      summary: Get a qualified lead's saved training offer for invoice creation
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Saved training offer
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TrainingOffer"
+
+  # ── iROC App: Notifications ───────────────────────────────────────────────────
+  /iroc/notifications:
+    get:
+      operationId: listIrocNotifications
+      tags: [iroc-notifications]
+      summary: List all notifications
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Notification list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AppNotification"
+
+  /iroc/notifications/read-all:
+    post:
+      operationId: markAllIrocNotificationsRead
+      tags: [iroc-notifications]
+      summary: Mark all notifications as read
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: All marked read
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  /iroc/notifications/{id}/read:
+    patch:
+      operationId: markIrocNotificationRead
+      tags: [iroc-notifications]
+      summary: Mark a single notification as read
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Updated notification
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppNotification"
+
+  /iroc/announcements/send:
+    post:
+      operationId: sendIrocAnnouncement
+      tags: [iroc]
+      summary: Send an announcement email to selected customers individually
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IrocAnnouncementInput"
+      responses:
+        "200":
+          description: Send results per customer
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IrocAnnouncementResult"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiError"
+
+  /portal/login:
+    post:
+      operationId: portalLogin
+      tags: [portal]
+      summary: Customer portal login with customer number and access code
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PortalLoginInput"
+      responses:
+        "200":
+          description: JWT and customer profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PortalLoginResponse"
+        "401":
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiError"
+
+  /portal/me:
+    get:
+      operationId: portalMe
+      tags: [portal]
+      summary: Get the currently authenticated portal customer
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Customer profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PortalCustomer"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiError"
+
+  /portal/invoices:
+    get:
+      operationId: listPortalInvoices
+      tags: [portal]
+      summary: List invoices for the authenticated customer
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: List of invoices
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PortalInvoice"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiError"
+
+  /portal/resources:
+    get:
+      operationId: listPortalResources
+      tags: [portal]
+      summary: List teaching materials available to the portal customer
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: List of resources
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PortalResource"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiError"
+
+  /portal/products:
+    get:
+      operationId: listPortalProducts
+      tags: [portal]
+      summary: List products available to the portal customer based on instrument certification
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Product groups with their products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PortalProductGroup"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiError"
+
+  /portal/training-dates:
+    get:
+      operationId: listPortalTrainingDates
+      tags: [portal]
+      summary: List upcoming training dates for the portal customer
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Upcoming training dates with availability
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PortalTrainingDate"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiError"
+
+  /portal/profile-update-request:
+    post:
+      operationId: portalProfileUpdateRequest
+      tags: [portal]
+      summary: Submit a profile update request for admin approval
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PortalProfileUpdateInput"
+      responses:
+        "200":
+          description: Request queued
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [ok]
+                properties:
+                  ok:
+                    type: boolean
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiError"
+
+  /portal/order-request:
+    post:
+      operationId: portalOrderRequest
+      tags: [portal]
+      summary: Submit an order request
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PortalOrderRequestInput"
+      responses:
+        "200":
+          description: Product order and draft invoice created, or service request queued
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [ok]
+                properties:
+                  ok:
+                    type: boolean
+                  orderId:
+                    type: integer
+                  invoiceId:
+                    type: ["integer", "null"]
+                  invoiceNumber:
+                    type: ["string", "null"]
+                  invoiceStatus:
+                    type: ["string", "null"]
+                    enum: [draft, null]
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiError"
+
+  /portal/training-request:
+    post:
+      operationId: portalTrainingRequest
+      tags: [portal]
+      summary: Submit a training registration request
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PortalTrainingRequestInput"
+      responses:
+        "200":
+          description: Training request queued
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [ok]
+                properties:
+                  ok:
+                    type: boolean
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiError"
+
+  /gemini/conversations:
+    get:
+      operationId: listGeminiConversations
+      tags: [gemini]
+      summary: List all conversations
+      responses:
+        "200":
+          description: List of conversations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GeminiConversation"
+    post:
+      operationId: createGeminiConversation
+      tags: [gemini]
+      summary: Create a new conversation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GeminiConversationInput"
+      responses:
+        "201":
+          description: Created conversation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiConversation"
+  /gemini/conversations/{id}:
+    get:
+      operationId: getGeminiConversation
+      tags: [gemini]
+      summary: Get conversation with messages
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Conversation with messages
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiConversationWithMessages"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiError"
+    delete:
+      operationId: deleteGeminiConversation
+      tags: [gemini]
+      summary: Delete a conversation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiError"
+  /gemini/conversations/{id}/messages:
+    get:
+      operationId: listGeminiMessages
+      tags: [gemini]
+      summary: List messages in a conversation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GeminiMessage"
+    post:
+      operationId: sendGeminiMessage
+      tags: [gemini]
+      summary: Send a message and receive an AI response (SSE stream)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GeminiMessageInput"
+      responses:
+        "200":
+          description: SSE stream of assistant response chunks
+          content:
+            text/event-stream: {}
+
+components:
+  schemas:
+    PatientTestimonial:
+      type: object
+      required: [id, titleDe, titleEn, descriptionDe, descriptionEn, patientLabel, procedureDe, procedureEn, videoUrl, displayOrder, published, createdAt, updatedAt]
+      properties:
+        id:
+          type: integer
+        titleDe:
+          type: string
+        titleEn:
+          type: string
+        descriptionDe:
+          type: string
+        descriptionEn:
+          type: string
+        patientLabel:
+          type: string
+        procedureDe:
+          type: string
+        procedureEn:
+          type: string
+        videoUrl:
+          type: string
+        displayOrder:
+          type: integer
+        published:
+          type: boolean
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+
+    PatientTestimonialInput:
+      type: object
+      required: [titleDe, titleEn, videoUrl]
+      properties:
+        titleDe:
+          type: string
+        titleEn:
+          type: string
+        descriptionDe:
+          type: string
+        descriptionEn:
+          type: string
+        patientLabel:
+          type: string
+        procedureDe:
+          type: string
+        procedureEn:
+          type: string
+        videoUrl:
+          type: string
+        displayOrder:
+          type: integer
+          minimum: 0
+        published:
+          type: boolean
+
+    PatientTestimonialPatch:
+      type: object
+      minProperties: 1
+      properties:
+        titleDe:
+          type: string
+        titleEn:
+          type: string
+        descriptionDe:
+          type: string
+        descriptionEn:
+          type: string
+        patientLabel:
+          type: string
+        procedureDe:
+          type: string
+        procedureEn:
+          type: string
+        videoUrl:
+          type: string
+        displayOrder:
+          type: integer
+          minimum: 0
+        published:
+          type: boolean
+
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    CertifiedDoctorItem:
+      type: object
+      required: [id, name]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          description: "Title and last name, e.g. Dr. Müller"
+        institutionName:
+          type: string
+          nullable: true
+          description: "Associated clinic or institute, when available"
+
+    SuccessResponse:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+        - message
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+
+    CustomerRegistrationInput:
+      type: object
+      required:
+        - address
+        - postalCode
+        - city
+        - country
+        - phone
+        - email
+        - instrument
+        - privacyConsent
+      properties:
+        salutation:
+          type: string
+        title:
+          type: ["string", "null"]
+        firstName:
+          type: ["string", "null"]
+        lastName:
+          type: ["string", "null"]
+        specialty:
+          type: ["string", "null"]
+        institutionName:
+          type: ["string", "null"]
+        institutionType:
+          type: ["string", "null"]
+        address:
+          type: string
+        postalCode:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        phone:
+          type: string
+        fax:
+          type: ["string", "null"]
+        email:
+          type: string
+        website:
+          type: ["string", "null"]
+        referenceNumber:
+          type: ["string", "null"]
+        ustIdNr:
+          type: ["string", "null"]
+        instrument:
+          type: string
+          enum: [spirecut, ministem, both, post_training_support, practice_marketing_support]
+        notes:
+          type: ["string", "null"]
+        privacyConsent:
+          type: boolean
+        # Shipping address (only when different from billing)
+        shippingFirstName:
+          type: ["string", "null"]
+        shippingLastName:
+          type: ["string", "null"]
+        shippingInstitutionName:
+          type: ["string", "null"]
+        shippingAddress:
+          type: ["string", "null"]
+        shippingPostalCode:
+          type: ["string", "null"]
+        shippingCity:
+          type: ["string", "null"]
+        shippingCountry:
+          type: ["string", "null"]
+        shippingPhone:
+          type: ["string", "null"]
+        shippingEmail:
+          type: ["string", "null"]
+        treatingDoctorName:
+          type: ["string", "null"]
+          description: Name of the doctor this product is being ordered for (title + last name)
+
+    OrderInput:
+      type: object
+      required:
+        - customerType
+        - companyName
+        - contactEmail
+        - instrument
+        - products
+        - privacyConsent
+      properties:
+        customerType:
+          type: string
+          enum: [existing, new]
+        companyName:
+          type: string
+        customerNr:
+          type: ["string", "null"]
+          description: Customer number (required for existing customers, together with reorderCode)
+        reorderCode:
+          type: ["string", "null"]
+          description: 8-character reorder code printed on the last invoice (existing customers)
+        contactName:
+          type: ["string", "null"]
+        contactEmail:
+          type: string
+        contactPhone:
+          type: ["string", "null"]
+        instrument:
+          type: string
+          enum: [spirecut, ministem, post_training_support, practice_marketing_support]
+        products:
+          type: ["string", "null"]
+        quantity:
+          type: ["string", "null"]
+        deliveryAddress:
+          type: ["string", "null"]
+        street:
+          type: ["string", "null"]
+        houseNumber:
+          type: ["string", "null"]
+        notes:
+          type: ["string", "null"]
+        privacyConsent:
+          type: boolean
+
+    TrainingDate:
+      type: object
+      required:
+        - id
+        - instrument
+        - date
+        - location
+        - maxParticipants
+        - availableSpots
+        - isActive
+      properties:
+        id:
+          type: integer
+        instrument:
+          type: string
+          enum: [spirecut, ministem]
+        date:
+          type: string
+        time:
+          type: ["string", "null"]
+        location:
+          type: string
+        locationDetail:
+          type: ["string", "null"]
+        maxParticipants:
+          type: integer
+        availableSpots:
+          type: integer
+        isActive:
+          type: boolean
+        notes:
+          type: ["string", "null"]
+
+    TrainingDateInput:
+      type: object
+      required:
+        - instrument
+        - date
+        - location
+        - maxParticipants
+      properties:
+        instrument:
+          type: string
+          enum: [spirecut, ministem]
+        date:
+          type: string
+        time:
+          type: ["string", "null"]
+        location:
+          type: string
+        locationDetail:
+          type: ["string", "null"]
+        maxParticipants:
+          type: integer
+        notes:
+          type: ["string", "null"]
+
+    TrainingRegistrationInput:
+      type: object
+      required:
+        - salutation
+        - medicalDegree
+        - firstName
+        - lastName
+        - specialty
+        - institutionName
+        - address
+        - postalCode
+        - city
+        - country
+        - phone
+        - email
+        - trainingDateId
+        - instrument
+        - privacyConsent
+        - marketingConsent
+      properties:
+        salutation:
+          type: string
+          enum: [Mann, Frau, Diverse, Andere]
+        medicalDegree:
+          type: string
+          enum: [Dr., "Dr. med.", Other]
+        firstName:
+          type: string
+        lastName:
+          type: string
+        specialty:
+          type: string
+        institutionName:
+          type: string
+        address:
+          type: string
+        street:
+          type: ["string", "null"]
+        houseNumber:
+          type: ["string", "null"]
+        postalCode:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        phone:
+          type: string
+        fax:
+          type: ["string", "null"]
+        email:
+          type: string
+        trainingDateId:
+          type: integer
+        instrument:
+          type: string
+          enum: [spirecut, ministem]
+        websiteUrl:
+          type: ["string", "null"]
+        notes:
+          type: ["string", "null"]
+        privacyConsent:
+          type: boolean
+        marketingConsent:
+          type: boolean
+
+    LoginInput:
+      type: object
+      required:
+        - instrument
+        - password
+      properties:
+        instrument:
+          type: string
+          enum: [spirecut, ministem]
+        password:
+          type: string
+
+    LoginResponse:
+      type: object
+      required:
+        - success
+        - instrument
+      properties:
+        success:
+          type: boolean
+        instrument:
+          type: string
+
+    SessionInfo:
+      type: object
+      required:
+        - authenticated
+      properties:
+        authenticated:
+          type: boolean
+        instrument:
+          type: ["string", "null"]
+
+    DoctorCertification:
+      type: object
+      required:
+        - instrument
+        - certifiedDate
+      properties:
+        instrument:
+          type: string
+          description: Product identifier, e.g. 'spirecut', 'ministem', or any future product
+        certifiedDate:
+          type: string
+
+    TrainedDoctor:
+      type: object
+      required:
+        - id
+        - firstName
+        - lastName
+        - city
+        - country
+        - certifications
+      properties:
+        id:
+          type: integer
+        title:
+          type: ["string", "null"]
+        firstName:
+          type: string
+        lastName:
+          type: string
+        specialty:
+          type: ["string", "null"]
+        institutionName:
+          type: ["string", "null"]
+        city:
+          type: string
+        postalCode:
+          type: ["string", "null"]
+        country:
+          type: string
+        phone:
+          type: ["string", "null"]
+        email:
+          type: ["string", "null"]
+        websiteUrl:
+          type: ["string", "null"]
+        lat:
+          type: ["number", "null"]
+        lon:
+          type: ["number", "null"]
+        certifications:
+          type: array
+          items:
+            $ref: "#/components/schemas/DoctorCertification"
+
+    GeoCoordinates:
+      type: object
+      required:
+        - lat
+        - lon
+      properties:
+        lat:
+          type: number
+        lon:
+          type: number
+
+    TrainedDoctorInput:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - city
+        - country
+        - certifications
+      properties:
+        title:
+          type: ["string", "null"]
+        firstName:
+          type: string
+        lastName:
+          type: string
+        specialty:
+          type: ["string", "null"]
+        institutionName:
+          type: ["string", "null"]
+        city:
+          type: string
+        postalCode:
+          type: ["string", "null"]
+        country:
+          type: string
+        phone:
+          type: ["string", "null"]
+        email:
+          type: ["string", "null"]
+        websiteUrl:
+          type: ["string", "null"]
+        lat:
+          type: ["number", "null"]
+          minimum: -90
+          maximum: 90
+        lon:
+          type: ["number", "null"]
+          minimum: -180
+          maximum: 180
+        certifications:
+          type: array
+          minItems: 1
+          items:
+            $ref: "#/components/schemas/DoctorCertification"
+
+    Resource:
+      type: object
+      required:
+        - id
+        - title
+        - type
+        - instrument
+        - url
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        titleDe:
+          type: ["string", "null"]
+        description:
+          type: ["string", "null"]
+        descriptionDe:
+          type: ["string", "null"]
+        type:
+          type: string
+          enum: [presentation, study, video, link]
+        instrument:
+          type: string
+          enum: [spirecut, ministem, both]
+        url:
+          type: string
+        thumbnailUrl:
+          type: ["string", "null"]
+
+    TeamMember:
+      type: object
+      required: [id, name, role, sortOrder, category]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        role:
+          type: string
+        roleDe:
+          type: ["string", "null"]
+        bio:
+          type: ["string", "null"]
+        bioDe:
+          type: ["string", "null"]
+        photoPath:
+          type: ["string", "null"]
+        sortOrder:
+          type: integer
+        category:
+          type: string
+          enum: [consulting_doctors, specialists, ai_agents]
+
+    TeamMemberInput:
+      type: object
+      properties:
+        name:
+          type: string
+        role:
+          type: string
+        roleDe:
+          type: ["string", "null"]
+        bio:
+          type: ["string", "null"]
+        bioDe:
+          type: ["string", "null"]
+        photoPath:
+          type: ["string", "null"]
+        sortOrder:
+          type: integer
+        category:
+          type: string
+          enum: [consulting_doctors, specialists, ai_agents]
+
+    RequestUploadUrlBody:
+      type: object
+      required: [name, size, contentType]
+      properties:
+        name:
+          type: string
+        size:
+          type: integer
+        contentType:
+          type: string
+
+    RequestUploadUrlResponse:
+      type: object
+      required: [uploadURL, objectPath]
+      properties:
+        uploadURL:
+          type: string
+        objectPath:
+          type: string
+        metadata:
+          type: object
+          properties:
+            name:
+              type: string
+            size:
+              type: integer
+            contentType:
+              type: string
+
+    TrainingRegistration:
+      type: object
+      required:
+        - id
+        - firstName
+        - lastName
+        - email
+        - instrument
+        - privacyConsent
+        - createdAt
+      properties:
+        id:
+          type: integer
+        salutation:
+          type: ["string", "null"]
+        medicalDegree:
+          type: ["string", "null"]
+        firstName:
+          type: string
+        lastName:
+          type: string
+        specialty:
+          type: ["string", "null"]
+        institutionName:
+          type: ["string", "null"]
+        address:
+          type: ["string", "null"]
+        postalCode:
+          type: ["string", "null"]
+        city:
+          type: ["string", "null"]
+        country:
+          type: ["string", "null"]
+        phone:
+          type: ["string", "null"]
+        fax:
+          type: ["string", "null"]
+        email:
+          type: string
+        instrument:
+          type: string
+          enum: [spirecut, ministem]
+        trainingDateId:
+          type: ["integer", "null"]
+        trainingDateInfo:
+          type: ["string", "null"]
+        websiteUrl:
+          type: ["string", "null"]
+        notes:
+          type: ["string", "null"]
+        privacyConsent:
+          type: boolean
+        certifiedDoctorId:
+          type: ["integer", "null"]
+        createdAt:
+          type: string
+
+    CertifyRegistrationInput:
+      type: object
+      required:
+        - instrument
+        - certifiedDate
+      properties:
+        instrument:
+          type: string
+          enum: [spirecut, ministem]
+        certifiedDate:
+          type: string
+
+    ConfirmTrainingRegistrationResponse:
+      type: object
+      required: [registrationId, status, confirmedAt, leadId, leadCreated]
+      properties:
+        registrationId:
+          type: integer
+        status:
+          type: string
+          enum: [confirmed]
+        confirmedAt:
+          type: ["string", "null"]
+        leadId:
+          type: integer
+        leadCreated:
+          type: boolean
+
+    ResourceInput:
+      type: object
+      required:
+        - title
+        - type
+        - instrument
+        - url
+      properties:
+        title:
+          type: string
+        titleDe:
+          type: ["string", "null"]
+        description:
+          type: ["string", "null"]
+        descriptionDe:
+          type: ["string", "null"]
+        type:
+          type: string
+          enum: [presentation, study, video, link]
+        instrument:
+          type: string
+          enum: [spirecut, ministem, both]
+        url:
+          type: string
+        thumbnailUrl:
+          type: ["string", "null"]
+
+    # ── iROC App schemas ────────────────────────────────────────────────────────
+    IrocLoginInput:
+      type: object
+      required: [username, password]
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+
+    IrocLoginResponse:
+      type: object
+      required: [token, username]
+      properties:
+        token:
+          type: string
+        username:
+          type: string
+
+    IrocSession:
+      type: object
+      required: [authenticated]
+      properties:
+        authenticated:
+          type: boolean
+        username:
+          type: ["string", "null"]
+
+    UpdateIrocSessionInput:
+      type: object
+      required: [username]
+      properties:
+        username:
+          type: string
+          minLength: 1
+          maxLength: 100
+
+    UpdateIrocSessionResponse:
+      type: object
+      required: [authenticated, username, token]
+      properties:
+        authenticated:
+          type: boolean
+        username:
+          type: string
+        token:
+          type: string
+
+    ChangeIrocPasswordInput:
+      type: object
+      required: [currentPassword, newPassword]
+      properties:
+        currentPassword:
+          type: string
+          minLength: 1
+        newPassword:
+          type: string
+          minLength: 8
+          maxLength: 200
+
+    ChangeIrocPasswordResponse:
+      type: object
+      required: [success]
+      properties:
+        success:
+          type: boolean
+
+    AppDashboard:
+      type: object
+      required: [totalCustomers, totalProducts, totalInvoices, lowStockCount, unreadNotifications, revenueTotal, invoicesByStatus, incomingOrders]
+      properties:
+        totalCustomers:
+          type: integer
+        totalProducts:
+          type: integer
+        totalInvoices:
+          type: integer
+        lowStockCount:
+          type: integer
+        unreadNotifications:
+          type: integer
+        revenueTotal:
+          type: string
+        invoicesByStatus:
+          type: object
+          properties:
+            draft:
+              type: integer
+            sent:
+              type: integer
+            paid:
+              type: integer
+          required: [draft, sent, paid]
+        incomingOrders:
+          type: object
+          required: [pending, approved]
+          properties:
+            pending:
+              type: integer
+            approved:
+              type: integer
+
+    AppCustomer:
+      type: object
+      required: [id, name, country, isEu, createdAt]
+      properties:
+        id:
+          type: integer
+        salutation:
+          type: ["string", "null"]
+        title:
+          type: ["string", "null"]
+        name:
+          type: string
+        company:
+          type: ["string", "null"]
+        address:
+          type: ["string", "null"]
+        city:
+          type: ["string", "null"]
+        postalCode:
+          type: ["string", "null"]
+        country:
+          type: string
+        vatId:
+          type: ["string", "null"]
+        isPublicAuthority:
+          type: boolean
+        defaultBuyerReference:
+          type: ["string", "null"]
+        isEu:
+          type: boolean
+        email:
+          type: ["string", "null"]
+        phone:
+          type: ["string", "null"]
+        notes:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+
+    AppCustomerInput:
+      type: object
+      required: [name, country]
+      properties:
+        salutation:
+          type: ["string", "null"]
+        title:
+          type: ["string", "null"]
+        name:
+          type: string
+        company:
+          type: ["string", "null"]
+        address:
+          type: ["string", "null"]
+        city:
+          type: ["string", "null"]
+        postalCode:
+          type: ["string", "null"]
+        country:
+          type: string
+        vatId:
+          type: ["string", "null"]
+        isEu:
+          type: boolean
+        email:
+          type: ["string", "null"]
+        phone:
+          type: ["string", "null"]
+        notes:
+          type: ["string", "null"]
+
+    AppProduct:
+      type: object
+      required: [id, sku, nameEn, nameDe, unitPrice, stockQuantity, lowStockThreshold, category, createdAt, updatedAt]
+      properties:
+        id:
+          type: integer
+        sku:
+          type: string
+        nameEn:
+          type: string
+        nameDe:
+          type: string
+        descriptionEn:
+          type: ["string", "null"]
+        descriptionDe:
+          type: ["string", "null"]
+        unitPrice:
+          type: string
+        unitPriceBrutto:
+          type: ["string", "null"]
+        purchasePrice:
+          type: ["string", "null"]
+        purchaseDiscount:
+          type: ["string", "null"]
+        purchaseCurrency:
+          type: ["string", "null"]
+        purchaseRawPrice:
+          type: ["string", "null"]
+        recommendedPrice:
+          type: ["string", "null"]
+        stockQuantity:
+          type: integer
+        lowStockThreshold:
+          type: integer
+        category:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+
+    AppProductGroup:
+      type: object
+      required: [id, key, nameEn, nameDe, sortOrder, isService]
+      properties:
+        id:
+          type: integer
+        key:
+          type: string
+        nameEn:
+          type: string
+        nameDe:
+          type: string
+        sortOrder:
+          type: integer
+        isService:
+          type: boolean
+
+    AppProductGroupInput:
+      type: object
+      required: [key, nameEn, nameDe]
+      properties:
+        key:
+          type: string
+          minLength: 1
+        nameEn:
+          type: string
+          minLength: 1
+        nameDe:
+          type: string
+          minLength: 1
+        sortOrder:
+          type: integer
+        isService:
+          type: boolean
+
+    AppProductInput:
+      type: object
+      required: [sku, nameEn, nameDe, unitPrice]
+      properties:
+        sku:
+          type: string
+        nameEn:
+          type: string
+        nameDe:
+          type: string
+        descriptionEn:
+          type: ["string", "null"]
+        descriptionDe:
+          type: ["string", "null"]
+        unitPrice:
+          type: string
+        unitPriceBrutto:
+          type: ["string", "null"]
+          description: Send null to clear an existing gross price.
+        purchasePrice:
+          type: ["string", "null"]
+        purchaseDiscount:
+          type: ["string", "null"]
+        purchaseCurrency:
+          type: ["string", "null"]
+        purchaseRawPrice:
+          type: ["string", "null"]
+        recommendedPrice:
+          type: ["string", "null"]
+        stockQuantity:
+          type: integer
+        lowStockThreshold:
+          type: integer
+        category:
+          type: string
+
+    AppStockAdjust:
+      type: object
+      required: [quantity]
+      properties:
+        quantity:
+          type: integer
+          description: New absolute stock quantity
+
+    AppInvoiceItem:
+      type: object
+      required: [id, invoiceId, productName, unitPrice, quantity, lineTotal]
+      properties:
+        id:
+          type: integer
+        invoiceId:
+          type: integer
+        productId:
+          type: ["integer", "null"]
+        productName:
+          type: string
+        sku:
+          type: ["string", "null"]
+        description:
+          type: ["string", "null"]
+        lotNumber:
+          type: ["string", "null"]
+        hsCode:
+          type: ["string", "null"]
+        countryOfOrigin:
+          type: ["string", "null"]
+        weightKg:
+          type: ["string", "null"]
+        unitPrice:
+          type: string
+        discountPercent:
+          type: ["string", "null"]
+        vatRate:
+          type: ["string", "null"]
+        isDemo:
+          type: boolean
+        quantity:
+          type: integer
+        lineTotal:
+          type: string
+
+    AppInvoiceItemInput:
+      type: object
+      required: [productName, unitPrice, quantity]
+      properties:
+        productId:
+          type: ["integer", "null"]
+        productName:
+          type: string
+        sku:
+          type: ["string", "null"]
+        description:
+          type: ["string", "null"]
+        lotNumber:
+          type: ["string", "null"]
+        hsCode:
+          type: ["string", "null"]
+        countryOfOrigin:
+          type: ["string", "null"]
+        weightKg:
+          type: ["string", "null"]
+        unitPrice:
+          type: string
+        discountPercent:
+          type: ["string", "null"]
+        vatRate:
+          type: ["string", "null"]
+        isDemo:
+          type: boolean
+        quantity:
+          type: integer
+
+    AppInvoiceCorrectionInput:
+      type: object
+      required: [reason, items]
+      properties:
+        reason:
+          type: string
+          minLength: 1
+          maxLength: 2000
+        items:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            required: [invoiceItemId, quantity]
+            properties:
+              invoiceItemId: { type: integer }
+              quantity: { type: integer, minimum: 1 }
+
+    AppInvoice:
+      type: object
+      required: [id, invoiceNumber, customerId, invoiceType, issueDate, paymentTermCode, isB2g, deliveryCosts, insuranceCosts, subtotal, vatRate, vatAmount, total, status, language, createdAt]
+      properties:
+        id:
+          type: integer
+        invoiceNumber:
+          type: string
+        customerId:
+          type: integer
+        websiteCustomerId:
+          type: ["integer", "null"]
+        customerName:
+          type: ["string", "null"]
+        invoiceType:
+          type: string
+          enum: [domestic, eu, export, noneu, lecture-eu, lecture-noneu]
+        issueDate:
+          type: string
+        dueDate:
+          type: ["string", "null"]
+        orderNumber:
+          type: ["string", "null"]
+        referenceNumber:
+          type: ["string", "null"]
+        buyerReference:
+          type: ["string", "null"]
+        sellerVatId:
+          type: ["string", "null"]
+        buyerVatId:
+          type: ["string", "null"]
+        paymentTerms:
+          type: ["string", "null"]
+        paymentTermCode:
+          type: string
+          enum: [prepayment, immediate, net7, net14, net30, net60, custom]
+        isB2g:
+          type: boolean
+        shippingMethod:
+          type: ["string", "null"]
+        reasonForExport:
+          type: ["string", "null"]
+        termsOfDelivery:
+          type: ["string", "null"]
+        deliveryCosts:
+          type: string
+        insuranceCosts:
+          type: string
+        subtotal:
+          type: string
+        vatRate:
+          type: string
+        vatAmount:
+          type: string
+        total:
+          type: string
+        status:
+          type: string
+          enum: [draft, sent, paid, cancelled]
+        notes:
+          type: ["string", "null"]
+        language:
+          type: string
+          enum: [de, en]
+        sourceOrderId:
+          type: ["integer", "null"]
+        sallyGenerated:
+          type: boolean
+        correctionOfInvoiceId:
+          type: ["integer", "null"]
+        correctionReason:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+
+    AppInvoiceFull:
+      type: object
+      required: [id, invoiceNumber, customerId, invoiceType, issueDate, paymentTermCode, isB2g, deliveryCosts, insuranceCosts, subtotal, vatRate, vatAmount, total, status, language, createdAt, items, customer]
+      properties:
+        id:
+          type: integer
+        invoiceNumber:
+          type: string
+        customerId:
+          type: integer
+        customerName:
+          type: ["string", "null"]
+        invoiceType:
+          type: string
+          enum: [domestic, eu, export, noneu, lecture-eu, lecture-noneu]
+        issueDate:
+          type: string
+        dueDate:
+          type: ["string", "null"]
+        orderNumber:
+          type: ["string", "null"]
+        referenceNumber:
+          type: ["string", "null"]
+        buyerReference:
+          type: ["string", "null"]
+        sellerVatId:
+          type: ["string", "null"]
+        buyerVatId:
+          type: ["string", "null"]
+        paymentTerms:
+          type: ["string", "null"]
+        paymentTermCode:
+          type: string
+          enum: [prepayment, immediate, net7, net14, net30, net60, custom]
+        isB2g:
+          type: boolean
+        shippingMethod:
+          type: ["string", "null"]
+        reasonForExport:
+          type: ["string", "null"]
+        termsOfDelivery:
+          type: ["string", "null"]
+        deliveryCosts:
+          type: string
+        insuranceCosts:
+          type: string
+        subtotal:
+          type: string
+        vatRate:
+          type: string
+        vatAmount:
+          type: string
+        total:
+          type: string
+        status:
+          type: string
+          enum: [draft, sent, paid, cancelled]
+        notes:
+          type: ["string", "null"]
+        language:
+          type: string
+          enum: [de, en]
+        sourceOrderId:
+          type: ["integer", "null"]
+        isPortalOrder:
+          type: boolean
+        sallyGenerated:
+          type: boolean
+        correctionOfInvoiceId:
+          type: ["integer", "null"]
+        correctionReason:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/AppInvoiceItem"
+        customer:
+          $ref: "#/components/schemas/AppCustomer"
+        shipment:
+          oneOf:
+            - $ref: "#/components/schemas/IrocInvoiceShipment"
+            - type: "null"
+        corrections:
+          type: array
+          items:
+            type: object
+            required: [id, invoiceNumber, status]
+            properties:
+              id: { type: integer }
+              invoiceNumber: { type: string }
+              status: { type: string, enum: [draft, sent, paid, cancelled] }
+
+    IrocShipmentInput:
+      type: object
+      required: [serviceId, carrier, serviceCode, quotedDeliveryCost, weightKg, confirm]
+      properties:
+        serviceId: { type: string }
+        carrier: { type: string }
+        serviceCode: { type: string }
+        quotedDeliveryCost: { type: number, minimum: 0 }
+        quotedInsuranceCost: { type: number, minimum: 0 }
+        includeInsurance: { type: boolean, default: true }
+        weightKg: { type: number, exclusiveMinimum: 0 }
+        lengthCm: { type: number, exclusiveMinimum: 0 }
+        widthCm: { type: number, exclusiveMinimum: 0 }
+        heightCm: { type: number, exclusiveMinimum: 0 }
+        confirm: { type: boolean, enum: [true] }
+
+    IrocShippingRate:
+      type: object
+      required: [id, carrier, serviceCode, name, price, insurancePrice, totalPrice, currency, pickupSupported, handover]
+      properties:
+        id: { type: string }
+        carrier: { type: string }
+        serviceCode: { type: string }
+        name: { type: string }
+        price: { type: number }
+        insurancePrice: { type: number }
+        totalPrice: { type: number }
+        currency: { type: string }
+        pickupSupported: { type: boolean }
+        handover: { type: string, enum: [pickup, dropoff, pickup_dropoff, unknown] }
+
+    IrocShippingRatesResponse:
+      type: object
+      required: [rates, suggestedServiceId, insuredValue, uninsuredValue, pickupWindow, insuranceIncluded]
+      properties:
+        rates:
+          type: array
+          items:
+            $ref: "#/components/schemas/IrocShippingRate"
+        suggestedServiceId: { type: ["string", "null"] }
+        insuredValue: { type: number }
+        uninsuredValue: { type: number }
+        pickupWindow: { type: string }
+        insuranceIncluded: { type: boolean }
+
+    IrocInvoiceShipment:
+      type: object
+      required: [shipmentId, status, trackingNumber, labelUrl, deliveryCosts, insuranceCosts, insuredValue]
+      properties:
+        shipmentId: { type: integer }
+        status: { type: string }
+        trackingNumber: { type: ["string", "null"] }
+        labelUrl: { type: ["string", "null"] }
+        sendcloudShipmentId: { type: ["string", "null"] }
+        deliveryCosts: { type: string }
+        insuranceCosts: { type: string }
+        insuredValue: { type: string }
+        pickupScheduledFor: { type: ["string", "null"], format: date-time }
+        weightKg: { type: string }
+        lengthCm: { type: ["string", "null"] }
+        widthCm: { type: ["string", "null"] }
+        heightCm: { type: ["string", "null"] }
+
+    IrocShipmentResponse:
+      type: object
+      required: [shipmentId, trackingNumber, labelUrl, insuredValue, insuranceCosts, pickupScheduledFor]
+      properties:
+        shipmentId: { type: integer }
+        trackingNumber: { type: ["string", "null"] }
+        labelUrl: { type: ["string", "null"] }
+        insuredValue: { type: number }
+        insuranceCosts: { type: number }
+        pickupScheduledFor: { type: string, format: date-time }
+        invoiceTotals:
+          type: object
+          required: [deliveryCosts, insuranceCosts, vatAmount, total]
+          properties:
+            deliveryCosts: { type: string }
+            insuranceCosts: { type: string }
+            vatAmount: { type: string }
+            total: { type: string }
+
+    AppInvoiceInput:
+      type: object
+      required: [websiteCustomerId, invoiceType, issueDate, items]
+      properties:
+        websiteCustomerId:
+          type: integer
+        invoiceType:
+          type: string
+          enum: [domestic, eu, export, noneu, lecture-eu, lecture-noneu]
+        issueDate:
+          type: string
+        dueDate:
+          type: ["string", "null"]
+        orderNumber:
+          type: ["string", "null"]
+        referenceNumber:
+          type: ["string", "null"]
+        buyerReference:
+          type: ["string", "null"]
+        sellerVatId:
+          type: ["string", "null"]
+        buyerVatId:
+          type: ["string", "null"]
+        paymentTerms:
+          type: ["string", "null"]
+        paymentTermCode:
+          type: string
+          enum: [prepayment, immediate, net7, net14, net30, net60, custom]
+        isB2g:
+          type: boolean
+        shippingMethod:
+          type: ["string", "null"]
+        reasonForExport:
+          type: ["string", "null"]
+        termsOfDelivery:
+          type: ["string", "null"]
+        deliveryCosts:
+          type: string
+          description: Finite non-negative decimal amount represented as a string.
+        vatRate:
+          type: string
+        vatNote:
+          type: ["string", "null"]
+        notes:
+          type: ["string", "null"]
+        language:
+          type: string
+          enum: [de, en]
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: "#/components/schemas/AppInvoiceItemInput"
+
+    AppInvoiceStatusUpdate:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+          enum: [draft, sent, paid, cancelled]
+
+    TrainingOfferInput:
+      type: object
+      required: [invoiceType, issueDate, items]
+      properties:
+        invoiceType:
+          type: string
+          enum: [domestic, eu, export, noneu, lecture-eu, lecture-noneu]
+        language:
+          type: string
+          enum: [de, en]
+        issueDate:
+          type: string
+        dueDate:
+          type: ["string", "null"]
+        trainingDate:
+          type: ["string", "null"]
+        orderNumber:
+          type: ["string", "null"]
+        referenceNumber:
+          type: ["string", "null"]
+        shippingMethod:
+          type: ["string", "null"]
+        reasonForExport:
+          type: ["string", "null"]
+        termsOfDelivery:
+          type: ["string", "null"]
+        deliveryCosts:
+          type: string
+        vatRate:
+          type: string
+        vatNote:
+          type: ["string", "null"]
+        notes:
+          type: ["string", "null"]
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: "#/components/schemas/AppInvoiceItemInput"
+
+    TrainingOffer:
+      type: object
+      required: [id, leadId, websiteCustomerId, invoiceType, language, issueDate, deliveryCosts, vatRate, items]
+      properties:
+        id:
+          type: integer
+        leadId:
+          type: integer
+        websiteCustomerId:
+          type: integer
+        invoiceType:
+          type: string
+          enum: [domestic, eu, export, noneu, lecture-eu, lecture-noneu]
+        language:
+          type: string
+          enum: [de, en]
+        issueDate:
+          type: string
+        dueDate:
+          type: ["string", "null"]
+        trainingDate:
+          type: ["string", "null"]
+        orderNumber:
+          type: ["string", "null"]
+        referenceNumber:
+          type: ["string", "null"]
+        shippingMethod:
+          type: ["string", "null"]
+        reasonForExport:
+          type: ["string", "null"]
+        termsOfDelivery:
+          type: ["string", "null"]
+        deliveryCosts:
+          type: string
+        vatRate:
+          type: string
+        vatNote:
+          type: ["string", "null"]
+        notes:
+          type: ["string", "null"]
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/AppInvoiceItemInput"
+
+    AppNotification:
+      type: object
+      required: [id, type, message, isRead, createdAt]
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+        message:
+          type: string
+        productId:
+          type: ["integer", "null"]
+        isRead:
+          type: boolean
+        createdAt:
+          type: string
+
+    GeminiConversation:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - title
+        - createdAt
+    GeminiMessage:
+      type: object
+      properties:
+        id:
+          type: integer
+        conversationId:
+          type: integer
+        role:
+          type: string
+        content:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - conversationId
+        - role
+        - content
+        - createdAt
+    GeminiConversationInput:
+      type: object
+      properties:
+        title:
+          type: string
+      required:
+        - title
+    GeminiMessageInput:
+      type: object
+      properties:
+        content:
+          type: string
+        language:
+          type: string
+          enum: [de, en]
+      required:
+        - content
+    GeminiConversationWithMessages:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/GeminiMessage"
+      required:
+        - id
+        - title
+        - createdAt
+        - messages
+    GeminiError:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+
+    PortalLoginInput:
+      type: object
+      required: [customerNr, reorderCode]
+      properties:
+        customerNr:
+          type: string
+        reorderCode:
+          type: string
+    PortalCustomer:
+      type: object
+      required: [id, customerNr, email, instrument, certifications]
+      properties:
+        id:
+          type: integer
+        customerNr:
+          type: string
+        salutation:
+          type: string
+        title:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        specialty:
+          type: string
+        institutionName:
+          type: string
+        address:
+          type: string
+        postalCode:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        lastOrderPhone:
+          type: ["string", "null"]
+        lastOrderDeliveryAddress:
+          type: ["string", "null"]
+        instrument:
+          type: string
+        certifications:
+          type: array
+          items:
+            type: string
+    PortalLoginResponse:
+      type: object
+      required: [token, customer]
+      properties:
+        token:
+          type: string
+        customer:
+          $ref: "#/components/schemas/PortalCustomer"
+    PortalInvoice:
+      type: object
+      required: [id, invoiceNumber, status, issueDate]
+      properties:
+        id:
+          type: integer
+        invoiceNumber:
+          type: string
+        status:
+          type: string
+        invoiceType:
+          type: string
+        issueDate:
+          type: string
+        totalAmount:
+          type: number
+        currency:
+          type: string
+        notes:
+          type: string
+        correctionOfInvoiceId:
+          type: ["integer", "null"]
+        originalInvoiceNumber:
+          type: ["string", "null"]
+    PortalResource:
+      type: object
+      required: [id, title, type, url]
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        titleDe:
+          type: string
+        description:
+          type: string
+        descriptionDe:
+          type: string
+        type:
+          type: string
+        url:
+          type: string
+        thumbnailUrl:
+          type: string
+    PortalProfileUpdateInput:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+        postalCode:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        institutionName:
+          type: string
+        notes:
+          type: string
+    PortalProduct:
+      type: object
+      required: [id, sku, nameEn, nameDe, category]
+      properties:
+        id:
+          type: integer
+        sku:
+          type: string
+        nameEn:
+          type: string
+        nameDe:
+          type: string
+        category:
+          type: string
+
+    PortalProductGroup:
+      type: object
+      required: [id, key, nameEn, nameDe, sortOrder, products]
+      properties:
+        id:
+          type: integer
+        key:
+          type: string
+        nameEn:
+          type: string
+        nameDe:
+          type: string
+        sortOrder:
+          type: integer
+        products:
+          type: array
+          items:
+            $ref: "#/components/schemas/PortalProduct"
+
+    PortalTrainingDate:
+      type: object
+      required: [id, instrument, date, location, maxParticipants, registeredCount, availableSpots, isAvailable]
+      properties:
+        id:
+          type: integer
+        instrument:
+          type: string
+        date:
+          type: string
+        time:
+          type: string
+        location:
+          type: string
+        locationDetail:
+          type: string
+        maxParticipants:
+          type: integer
+        registeredCount:
+          type: integer
+        availableSpots:
+          type: integer
+        isAvailable:
+          type: boolean
+        notes:
+          type: string
+
+    PortalOrderRequestInput:
+      type: object
+      required: [orderMode, contactEmail, contactPhone, privacyConsent, detailsConfirmed]
+      properties:
+        orderMode:
+          type: string
+          enum: [product, service]
+        serviceType:
+          type: string
+        contactName:
+          type: string
+        contactEmail:
+          type: string
+        contactPhone:
+          type: string
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              productId:
+                type: integer
+              name:
+                type: string
+              quantity:
+                type: integer
+              category:
+                type: string
+        deliveryAddress:
+          type: string
+        notes:
+          type: string
+        privacyConsent:
+          type: boolean
+          enum: [true]
+        detailsConfirmed:
+          type: boolean
+          enum: [true]
+    PortalTrainingRequestInput:
+      type: object
+      required: [requestedDate, privacyConsent, marketingConsent]
+      properties:
+        trainingDateId:
+          type: integer
+        salutation:
+          type: string
+        medicalDegree:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        specialty:
+          type: string
+        institutionName:
+          type: string
+        address:
+          type: string
+        postalCode:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        fax:
+          type: string
+        websiteUrl:
+          type: string
+        requestedDate:
+          type: string
+        location:
+          type: string
+        participantCount:
+          type: integer
+        notes:
+          type: string
+        privacyConsent:
+          type: boolean
+        marketingConsent:
+          type: boolean
+
+    IrocAnnouncementInput:
+      type: object
+      required: [customerIds, subject, body]
+      properties:
+        customerIds:
+          type: array
+          items:
+            type: integer
+        subject:
+          type: string
+        body:
+          type: string
+    IrocAnnouncementResult:
+      type: object
+      required: [sent, failed, results]
+      properties:
+        sent:
+          type: integer
+        failed:
+          type: integer
+        results:
+          type: array
+          items:
+            type: object
+            required: [customerId, email, status]
+            properties:
+              customerId:
+                type: integer
+              email:
+                type: string
+              status:
+                type: string
+              error:
+                type: string

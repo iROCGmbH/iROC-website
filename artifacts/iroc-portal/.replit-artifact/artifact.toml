@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/iroc-portal/"
+title = "iROC-portal"
+description = "PWA for iROC medical doctors to access their training materials, download invoices, place orders, and request training registrations. Authenticates with customer number and 8-character access code. Installable on iOS via Add to Home Screen and on Android via browser install."
+version = "1.0.0"
+id = "artifacts/iroc-portal"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/iroc-portal/" ]
+localPort = 18507
+
+[services.development]
+run = "pnpm --filter @workspace/iroc-portal run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/iroc-portal", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/iroc-portal/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18507"
+BASE_PATH = "/iroc-portal/"

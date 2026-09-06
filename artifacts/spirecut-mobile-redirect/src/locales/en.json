@@ -1,0 +1,465 @@
+{
+  "nav": {
+    "home": "Home",
+    "findDoctor": "Find a Doctor",
+    "praktischeInfo": "Practical Info",
+    "postop": "Postop. Progress",
+    "faq": "FAQ",
+    "kontakt": "Contact",
+    "ct": "Carpal Tunnel Syndrome",
+    "tf": "Trigger Finger",
+    "testimonials": "Patient Stories",
+    "openMenu": "Open navigation"
+  },
+  "footer": {
+    "pages": "Pages",
+    "legal": "Legal",
+    "sales": "Sales D/AT",
+    "copyright": "© {{year}} Spirecut AG. All rights reserved. Spirecut® is a registered trademark.",
+    "certificates": {
+      "swiss": "Swiss Made",
+      "fda": "FDA registered",
+      "ce": "CE marked",
+      "iso": "ISO 13485 certified",
+      "patented": "Patented technology"
+    },
+    "links": {
+      "home": "Home",
+      "findDoctor": "Find a Doctor",
+      "praktischeInfo": "Practical Information",
+      "postop": "Postoperative Progress",
+      "faq": "FAQ",
+      "kontakt": "Contact",
+      "ct": "Carpal Tunnel Syndrome",
+      "tf": "Trigger Finger",
+      "testimonials": "Patient Stories",
+      "impressum": "Impressum",
+      "datenschutz": "Privacy Policy"
+    }
+  },
+  "doctorBar": {
+    "question": "Are you a physician?",
+    "cta": "Go to Doctor's Site →"
+  },
+  "appNav": {
+    "companion": "Your companion",
+    "patientArea": "Your personal patient area",
+    "questionsTitle": "Questions are welcome.",
+    "questionsBody": "Save this page for later.",
+    "closeMenu": "Close navigation"
+  },
+  "hand": {
+    "thumb": "Thumb",
+    "index": "Index finger",
+    "middle": "Middle finger",
+    "ring": "Ring finger",
+    "little": "Little finger",
+    "wrist": "Wrist",
+    "left": "Left",
+    "right": "Right",
+    "leftHand": "Left Hand",
+    "rightHand": "Right Hand",
+    "tapHint": "Tap a finger or the wrist to mark the operated area.",
+    "remove": "Remove"
+  },
+  "legalOnly": {
+    "notice": "This page is only available in German.",
+    "note": "Only available in German"
+  },
+  "home": {
+    "heroTitle": "Patient information on percutaneous hand surgery",
+    "heroPara1": "Percutaneous hand surgery is a minimally invasive technique for treating common conditions such as carpal tunnel syndrome and trigger finger.",
+    "heroPara2": "Using specialised Spirecut instruments and ultrasound guidance, surgeons can perform these procedures with high precision and safety — without any skin incision.",
+    "heroPara3": "This website provides clear information about the procedures and helps patients prepare for the surgical and postoperative process.",
+    "ctaPraktisch": "Practical Information",
+    "ctaArzt": "Find a Doctor",
+    "whatTitle": "What is percutaneous hand surgery?",
+    "whatPara1": "The Spirecut procedure is a <strong>percutaneous</strong> (Latin: \"through the skin\") method. The entire intervention is performed through a needle puncture — it heals within one day, without any suture.",
+    "whatPara2": "The procedure is performed under <strong>ultrasound</strong> guidance, similar to a pregnancy scan. This allows the surgeon to visualise nerves, blood vessels and ligaments in the hand far more clearly than in open surgery.",
+    "whatPara3": "Spirecut instruments have a diameter of only <strong>1.5 mm</strong> and are inserted through the needle puncture to release the constricting ligament.",
+    "advantagesTitle": "What are the benefits?",
+    "advantages": [
+      "No skin incision",
+      "No dressing or scar after the procedure",
+      "Immediate return to daily activities",
+      "Specific instrument for two common hand conditions: carpal tunnel syndrome and trigger finger"
+    ],
+    "quote": "\"Spirecut is a Swiss company that has developed instruments enabling ultrasound-guided procedures without a skin incision — based on the invention of Belgian surgeon Prof. Fabian Moungondo.\"",
+    "conditionsTitle": "Conditions treated",
+    "ctTitle": "Carpal Tunnel Syndrome",
+    "ctDesc": "Tingling, numbness or pain in the fingers? The Spirecut Sono instrument gently and precisely releases the constricting transverse carpal ligament.",
+    "tfTitle": "Trigger Finger",
+    "tfDesc": "A finger that locks or snaps when bending? Spirecut's ring ligament release frees the tendon precisely under ultrasound — without a scalpel.",
+    "learnMore": "Learn more",
+    "feedbackStrip": "⭐ {{rating}} / 5 — {{count}} patients rated their outcome",
+    "dashboardOverview": "Your overview",
+    "dashboardOverviewBody": "Everything important, calmly explained.",
+    "dashboardLearn": "Learn",
+    "dashboardLearnBody": "Understand your condition",
+    "dashboardAnytime": "Anytime",
+    "dashboardPrompt": "Not sure where to start?",
+    "dashboardExplore": "Explore conditions",
+    "testimonialsTitle": "What our patients say",
+    "instrumentCtAlt": "Spirecut instrument for carpal tunnel syndrome",
+    "instrumentTfAlt": "Spirecut instrument for trigger finger",
+    "ctInstrumentAlt": "Spirecut instrument for carpal tunnel syndrome",
+    "tfInstrumentAlt": "Spirecut instrument for trigger finger"
+  },
+  "ct": {
+    "badge": "Patient Information",
+    "heroTitle": "Carpal Tunnel Syndrome: Gentle Treatment Without Surgery",
+    "heroDesc": "Tingling fingers, night-time pain and numbness? The Spirecut® procedure offers a fast, minimally invasive solution.",
+    "findDoctor": "Find a Certified Physician",
+    "whatTitle": "What is carpal tunnel syndrome?",
+    "whatDesc": "The carpal tunnel is a narrow channel at the wrist through which tendons and the median nerve pass. When the tissue in the carpal tunnel swells or the space becomes too tight, it compresses the nerve.",
+    "symptomsTitle": "Typical Symptoms",
+    "symptoms": [
+      "Nocturnal numbness of the hand",
+      "Tingling in the thumb, index and middle finger",
+      "Pain that can radiate into the arm",
+      "Morning stiffness of the fingers",
+      "Weakness when gripping",
+      "Loss of sensation"
+    ],
+    "treatmentTitle": "The Spirecut® Treatment",
+    "treatmentSubtitle": "Why this new procedure is so beneficial for patients.",
+    "classicTitle": "Conventional Surgery",
+    "classicItems": [
+      "Incision in the palm (approx. 2–3 cm)",
+      "Permanent, visible scar",
+      "Longer recovery period (often weeks)",
+      "Possible scar complications",
+      "Cast or splint often necessary"
+    ],
+    "modernBadge": "The Modern Alternative",
+    "modernTitle": "Spirecut® Method",
+    "modernItems": [
+      [
+        "No incision",
+        "Access via a tiny puncture"
+      ],
+      [
+        "No scar",
+        "Perfect cosmetic outcome"
+      ],
+      [
+        "Fast recovery",
+        "Daily activities often possible the next day"
+      ],
+      [
+        "Ultrasound guidance",
+        "Maximum safety during the procedure"
+      ],
+      [
+        "No cast",
+        "Just a small plaster"
+      ]
+    ],
+    "ctaTitle": "Want to grip without pain again?",
+    "ctaDesc": "Get advice from a certified specialist on whether the Spirecut treatment is right for you.",
+    "findNearby": "Find a Doctor Near You",
+    "howItWorks": "How the procedure works",
+    "heroImageAlt": "Carpal tunnel syndrome treatment"
+  },
+  "tf": {
+    "badge": "Patient Information",
+    "heroTitle": "Trigger Finger: Release Without an Incision",
+    "heroDesc": "Your finger locks, snaps or hurts when bending? With Spirecut®, the constricting area is gently and precisely released — without conventional surgery.",
+    "findDoctor": "Find a Certified Physician",
+    "whatTitle": "What is a trigger finger?",
+    "whatDesc": "Trigger finger (also known as stenosing tenosynovitis) is caused by a thickening of the flexor tendon or the annular ligament. The tendon can no longer glide smoothly and catches. When trying to straighten the finger, the blockage often releases suddenly and with a jerk.",
+    "symptomsTitle": "Typical Symptoms",
+    "symptoms": [
+      "Painful snapping when bending or straightening",
+      "A small, tender nodule at the palm",
+      "Morning stiffness in the affected finger",
+      "The finger remains stuck in a bent position",
+      "Pain at the base of the affected finger"
+    ],
+    "treatmentTitle": "Annular Ligament Release with Spirecut®",
+    "treatmentSubtitle": "The modern, minimally invasive alternative to open hand surgery.",
+    "classicTitle": "Conventional Surgery",
+    "classicItems": [
+      "Skin incision in the palm (annular ligament release)",
+      "Sutures and dressing required",
+      "Risk of painful scars on the gripping surface",
+      "Restricted hand use for weeks"
+    ],
+    "modernBadge": "The Spirecut Method",
+    "modernTitle": "Sono Instrument",
+    "modernItems": [
+      [
+        "No scalpel",
+        "Just a tiny needle puncture"
+      ],
+      [
+        "Under ultrasound",
+        "Millimetre-precise release of the ligament"
+      ],
+      [
+        "Immediate movement",
+        "The finger is often freely movable right away"
+      ],
+      [
+        "No sutures",
+        "Just a plaster, no cumbersome dressing"
+      ]
+    ],
+    "ctaTitle": "Ready for a snap-free daily life?",
+    "ctaDesc": "The Spirecut procedure is performed on an outpatient basis and takes only a few minutes.",
+    "findNearby": "Find a Doctor Near You",
+    "watchVideo": "Watch procedure video",
+    "heroImageAlt": "Trigger finger treatment"
+  },
+  "how": {
+    "heroTitle": "How the Spirecut® Treatment Works",
+    "heroDesc": "A medical breakthrough: safe, precise and entirely without an open skin incision, thanks to state-of-the-art ultrasound technology.",
+    "steps": [
+      {
+        "step": "01",
+        "title": "Diagnosis and Consultation",
+        "desc": "First, the physician examines your hand with a high-resolution ultrasound device. The exact cause is determined and the procedure is discussed with you in detail."
+      },
+      {
+        "step": "02",
+        "title": "Local Anaesthesia",
+        "desc": "The procedure is performed on an outpatient basis. The relevant area of the hand is locally anaesthetised. You are awake but will feel no pain during the procedure."
+      },
+      {
+        "step": "03",
+        "title": "The Procedure Under Ultrasound",
+        "desc": "The fine Spirecut instrument is introduced through a tiny puncture site. The physician follows every step live on the ultrasound image. The constricting ligament is precisely released — surrounding tissue and nerves remain protected."
+      },
+      {
+        "step": "04",
+        "title": "After the Treatment",
+        "desc": "No suturing is required. The puncture site is simply covered with a small plaster. You can leave the practice shortly afterwards and often use your hand for everyday tasks the very next day."
+      }
+    ],
+    "videoTitle": "See it for yourself",
+    "videoDesc": "In these videos, specialist physicians explain the procedure and the benefits of the Spirecut method for carpal tunnel syndrome and trigger finger.",
+    "videoMethod": "The Spirecut Method",
+    "videoTF": "Trigger Finger Treatment",
+    "videoMethodIframeTitle": "Spirecut surgery technique",
+    "videoTFIframeTitle": "Spirecut trigger finger treatment",
+    "videoUnavailable": "Video currently unavailable",
+    "ctaTitle": "Convinced? Find a doctor now.",
+    "ctaDesc": "All certified practices in Germany and Austria at a glance.",
+    "ctaBtn": "Show Certified Practices"
+  },
+  "findDoctor": {
+    "heroTitle": "Find a Doctor",
+    "heroDesc": "The Spirecut procedure is performed exclusively by specially trained physicians. Find a certified practice near you here.",
+    "germany": "Germany",
+    "austria": "Austria",
+    "practiceWebsite": "Visit Practice Website",
+    "loading": "Loading doctors…",
+    "error": "The doctor list could not be loaded at the moment. Please try again later.",
+    "otherCountries": "Other Countries",
+    "zipLabel": "Postal Code",
+    "zipPlaceholder": "e.g. 52062",
+    "radiusLabel": "Radius",
+    "radiusAll": "All",
+    "countryLabel": "Country",
+    "countryAll": "All Countries",
+    "searchBtn": "Search",
+    "clearSearch": "Clear Search",
+    "zipNotFound": "This postal code could not be found. Please check your input.",
+    "resultsSummary": "{{count}} practice(s) within {{radius}} km of postcode {{zip}}",
+    "noResults": "No practices found within {{radius}} km of postcode {{zip}}.",
+    "noResultsHint": "Try a larger radius or a different country."
+  },
+  "praktisch": {
+    "title": "Practical Information",
+    "intro": "Your physician has scheduled an ultrasound-guided percutaneous procedure using the Spirecut method. We would like to explain how the procedure will proceed and what you can expect afterwards. Please note: depending on your individual situation, the organisation of the practice and your physician's experience, there may be minor or significant deviations from this general information. Always follow the recommendations and instructions of your treating physician.",
+    "generalTitle": "General Information",
+    "generalIntro": "The procedure you will receive is percutaneous, ultrasound-guided and performed with the Spirecut technique. What do these terms mean?",
+    "percutaneous": "1) Percutaneous",
+    "percutaneousDesc": "The entire procedure is performed through a needle puncture that heals within one day after the operation. The puncture is comparable in size to an intravenous needle used for a blood draw. Therefore, the day after the procedure you do not require any further wound care — you can wash your hand and resume all normal activities. There are no sutures to remove.",
+    "ultrasound": "2) Ultrasound-guided",
+    "ultrasoundDesc": "The procedure is performed under ultrasound guidance (the same device used to monitor foetal development during pregnancy, but with a different probe). This allows the surgeon to see nerves, blood vessels and ligaments in the hand often better than in a conventional open operation.",
+    "spirecut": "3) Spirecut",
+    "spirecutDesc": "Spirecut is a Swiss company that has developed instruments enabling ultrasound-guided procedures without a skin incision, based on the invention of Belgian surgeon Professor Fabian Moungondo. The Spirecut instruments are very fine (diameter: 1.5 mm) and are introduced through the needle puncture to release the ligament that is compressing your nerve or tendon.",
+    "beforeTitle": "Before the Procedure",
+    "beforeIntro": "Most procedures of this type do not require any specific preparation. Nevertheless, a few important points apply:",
+    "beforeItems": [
+      "If you take blood thinners (e.g. Aspirin, Plavix, Xarelto, Eliquis, Pradaxa), inform your physician in advance. An adjustment may be required depending on the medication and dosage.",
+      "General anaesthesia is not required. You therefore do not need to fast, unless your physician explicitly instructs you to do so.",
+      "Plan to bring someone with you or take a taxi in case you feel unwell from the local anaesthesia."
+    ],
+    "anaesthesiaTitle": "Anaesthesia",
+    "anaesthesiaDesc": "The procedure is performed under local anaesthesia. Your physician injects an anaesthetic around the affected region. The injection itself may be briefly uncomfortable, but after a few minutes you should feel very little. You are awake during the procedure, but without pain in the hand.",
+    "duringTitle": "During the Procedure",
+    "duringPara1": "The surgeon introduces the Spirecut instrument through a needle puncture. Under continuous ultrasound guidance, the constricting ligament is precisely released. The procedure typically takes only a few minutes.",
+    "duringPara2": "Thanks to the ultrasound, the surgeon can ensure that all important structures (nerves, vessels) are protected. The risk of nerve injury is thus even lower than in open surgery.",
+    "afterTitle": "After the Procedure",
+    "afterItems": [
+      [
+        "Day 0 (day of the procedure):",
+        "The puncture site is covered with a small plaster. You can leave the practice shortly after the procedure. Avoid wet hands and physical exertion in the first few hours."
+      ],
+      [
+        "Day 1:",
+        "The plaster can be removed. You can wash your hand and resume normal daily activities."
+      ],
+      [
+        "Pain:",
+        "Some patients report mild pain in the first few days. Over-the-counter pain relievers (e.g. ibuprofen) can be taken as needed."
+      ],
+      [
+        "Follow-up:",
+        "Your physician will tell you when and whether a follow-up appointment is required."
+      ],
+      [
+        "Contact your physician",
+        "if you notice severe pain, swelling, fever or redness at the puncture site."
+      ]
+    ],
+    "videosTitle": "Information Videos",
+    "video1Title": "Video 1",
+    "video2Title": "Video 2"
+  },
+  "postop": {
+    "title": "Share Your Postoperative Progress",
+    "para1": "Patient feedback is extremely valuable for advancing medical knowledge and improving patient care.",
+    "para2": "If you have undergone a procedure with this technique, you can share your postoperative experience anonymously.",
+    "para3": "All collected information is treated strictly confidentially and used exclusively for medical evaluation and research purposes.",
+    "whyTitle": "Why your feedback matters",
+    "whyItems": [
+      "Helps future patients make informed decisions",
+      "Supports the continuous improvement of the technique",
+      "Contributes to medical research",
+      "Anonymous and completely confidential"
+    ],
+    "procedureLabel": "Which procedure was performed?",
+    "procedurePlaceholder": "Please select…",
+    "procedureCT": "Carpal Tunnel Syndrome",
+    "procedureTF": "Trigger Finger",
+    "procedureBoth": "Both",
+    "handLabel": "Which hand / area was operated on?",
+    "handOptional": "(optional)",
+    "monthLabel": "When was the procedure performed?",
+    "ratingLabel": "How do you rate the outcome?",
+    "ratingHint": "(1 = very poor, 5 = excellent)",
+    "optionalDivider": "Optional details — help us understand patterns better",
+    "ageLabel": "Age group",
+    "ageSuffix": "years",
+    "genderLabel": "Gender",
+    "genders": {
+      "male": "Male",
+      "female": "Female",
+      "divers": "Other"
+    },
+    "occupationLabel": "Occupation",
+    "occupations": {
+      "handworker": "Manual worker",
+      "office": "Office work",
+      "retired": "Retired / Not employed"
+    },
+    "diseasesLabel": "Pre-existing conditions",
+    "diseases": {
+      "diabetes": "Diabetes Mellitus",
+      "cholesterol": "Hypercholesterolaemia",
+      "bloodpressure": "High blood pressure",
+      "other_metabolic": "Other metabolic disorder"
+    },
+    "experienceLabel": "Your experience",
+    "experienceHint": "optional",
+    "experiencePlaceholder": "Describe your recovery…",
+    "shareQuoteLabel": "I consent to my experience being published anonymously on this website.",
+    "shareQuoteHint": "Your name and all personal details are never shown. Only your text, procedure and rating are shared.",
+    "privacyNote": "Your answers are stored anonymously. No personal data is collected.",
+    "captchaTitle": "Security check",
+    "captchaLabel": "What is <bold>{{a}} + {{b}}</bold>?",
+    "captchaPlaceholder": "Answer",
+    "captchaError": "Wrong answer — please try again.",
+    "submitError": "Submission failed. Please try again.",
+    "sending": "Sending…",
+    "submit": "Submit anonymously",
+    "successTitle": "Thank you!",
+    "successMsg": "Your experience has been submitted anonymously.",
+    "stats": {
+      "eyebrow": "Patient feedback",
+      "title": "What do other patients say?",
+      "basedOn": "Based on {{count}} anonymous submissions",
+      "avgRating": "Average rating",
+      "totalSubmissions": "Submissions",
+      "patientsFeedback": "patients have rated their outcome",
+      "byProcedure": "By procedure",
+      "ratingDist": "Rating distribution",
+      "quotesTitle": "Patient experiences",
+      "anonymousPatient": "Anonymous patient"
+    }
+  },
+  "faq": {
+    "heroTitle": "Frequently Asked Questions",
+    "heroDesc": "Everything patients want to know before the procedure.",
+    "notFound": "Your question wasn't listed?",
+    "notFoundDesc": "A certified physician can answer all further questions about the method and your individual situation in a personal consultation.",
+    "contactDoctor": "Contact a Doctor",
+    "items": [
+      {
+        "q": "Is Spirecut® painful?",
+        "a": "No. The procedure is performed under local anaesthesia. You will feel no pain during the procedure, at most a slight pressure sensation. After the procedure, most patients report significantly less pain compared to open surgery."
+      },
+      {
+        "q": "How long does the procedure take?",
+        "a": "The actual Spirecut procedure usually takes only a few minutes. Including preparation, ultrasound examination and anaesthesia, you should plan for a total visit of approximately 30 to 45 minutes."
+      },
+      {
+        "q": "When can I use my hand normally again?",
+        "a": "Because no large incision is made and no sutures are needed, the hand heals significantly faster. Many patients can resume everyday activities (such as dressing or light office work) as early as the next day. However, you should avoid heavy physical strain for a few days."
+      },
+      {
+        "q": "Do I need a referral?",
+        "a": "Whether you need a referral depends on your health insurance and the specialist concerned. Most of the certified practices can be contacted directly. For private practices, a referral is generally not required."
+      },
+      {
+        "q": "Is Spirecut® covered by health insurance?",
+        "a": "Spirecut is a highly advanced procedure and reimbursement can vary. Private health insurance typically covers the costs in full. For statutory insurance patients, it depends on the individual insurer and practice — it is often billed as a self-pay service (IGeL). Please ask the practice directly about the exact costs and reimbursement options."
+      },
+      {
+        "q": "What are the risks?",
+        "a": "As with any medical procedure, Spirecut carries risks such as minor bleeding or, in very rare cases, infection. Thanks to continuous ultrasound monitoring, the risk of injuring nerves or blood vessels is extremely low — even lower than in open surgery, since the physician can see the tissue live on the screen."
+      },
+      {
+        "q": "Will there be a scar?",
+        "a": "That is one of the greatest advantages: the instrument is so fine that only a small puncture like a needle mark is created (approx. 1 mm). There is no cutting and no suturing. Therefore, no visible or bothersome scar remains in the palm."
+      }
+    ]
+  },
+  "kontakt": {
+    "eyebrow": "Do you have questions?",
+    "title": "Write to us!",
+    "manufacturer": "Manufacturer",
+    "formTitle": "Send a message",
+    "name": "Name / Company",
+    "email": "Email",
+    "phone": "Phone number",
+    "message": "Message",
+    "messagePlaceholder": "Your question or concern…",
+    "submitError": "Submission failed. Please try again or contact us directly at info@spirecut.com.",
+    "sending": "Sending…",
+    "submit": "Send",
+    "successTitle": "Thank you!",
+    "successMsg": "Your message has been sent successfully. We will get back to you shortly."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "desc": "The page you are looking for does not exist or has been moved.",
+    "back": "Back to Home"
+  },
+  "loading": {
+    "page": "Page is loading"
+  },
+  "testimonials": {
+    "heroTitle": "Patient Stories",
+    "heroDesc": "Hear first-hand how patients experienced the procedure and their recovery.",
+    "empty": "No patient stories are currently available.",
+    "error": "Error loading patient stories. Please try again later.",
+    "procedureLabel": "Procedure:",
+    "procedureCT": "Carpal Tunnel Syndrome",
+    "procedureTF": "Trigger Finger",
+    "patientLabel": "Patient:"
+  }
+}

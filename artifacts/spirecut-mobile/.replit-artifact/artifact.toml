@@ -1,0 +1,25 @@
+kind = "mobile"
+previewPath = "/spirecut-mobile-archive/"
+title = "Spirecut patient mobile archive"
+description = "Archived native Spirecut source. Browser visitors use the canonical Spirecut patient website instead."
+version = "1.0.0"
+id = "artifacts/spirecut-mobile"
+router = "path"
+
+[[services]]
+name = "expo"
+ensurePreviewReachable = "/status"
+paths = [ "/spirecut-mobile-archive/" ]
+localPort = 19481
+
+[services.development]
+run = "pnpm --filter @workspace/spirecut-mobile run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/spirecut-mobile", "run", "build" ]
+run = [ "pnpm", "--filter", "@workspace/spirecut-mobile", "run", "serve" ]
+
+[services.env]
+PORT = "19481"
+BASE_PATH = "/spirecut-mobile-archive/"
+SPIRECUT_WEB_PATH = "/spirecut-patient/"

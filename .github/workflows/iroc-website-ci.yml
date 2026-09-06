@@ -1,0 +1,96 @@
+# CI for iROC GmbH Website
+#
+# BASE_PATH is set explicitly here so the vitest suite exercises the
+# dynamic-injection path (process.env.BASE_PATH → __TEST_BASE_PATH__) rather
+# than silently falling back to the hardcoded '/iroc-website' default.
+#
+# To change the deployment base in the future, update the single
+# BASE_PATH value in the "env" block below.  Both test steps read
+# from that variable, so one edit is all that is needed.
+
+name: iROC Website CI
+
+on:
+  push:
+    paths:
+      - 'artifacts/iroc-website/**'
+      - 'lib/api-client-react/**'
+      - 'lib/object-storage-web/**'
+      - '.github/workflows/iroc-website-ci.yml'
+  pull_request:
+    paths:
+      - 'artifacts/iroc-website/**'
+      - 'lib/api-client-react/**'
+      - 'lib/object-storage-web/**'
+      - '.github/workflows/iroc-website-ci.yml'
+
+env:
+  # ── Single source of truth for the deployment base path ──────────────────
+  # Update this value when the deployment base changes; both test steps below
+  # inherit it automatically.
+  BASE_PATH: /iroc-website
+
+jobs:
+  test:
+    name: Unit tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Check CI workflow path filters
+        run: pnpm run check:ci-workflow-paths
+
+      - name: Check shared-library CI triggers
+        run: pnpm run check:iroc-website-ci-triggers
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check GitHub Actions workflow syntax
+        run: pnpm run check:ci-workflow-syntax
+
+      # ── Type-check ──────────────────────────────────────────────────────
+      - name: Type-check
+        working-directory: artifacts/iroc-website
+        run: pnpm typecheck
+
+      # ── Lint ────────────────────────────────────────────────────────────
+      - name: Lint
+        working-directory: artifacts/iroc-website
+        run: pnpm lint
+
+      # ── Production bundle ────────────────────────────────────────────────
+      # Type-checking and tests do not exercise every module-resolution path
+      # used by Vite/Rollup. Keep the production bundle as an explicit CI gate.
+      - name: Build production bundle
+        working-directory: artifacts/iroc-website
+        run: pnpm build
+
+      # ── Primary test run: production base path ───────────────────────────
+      # BASE_PATH is inherited from the job-level env block above.
+      - name: Run vitest (BASE_PATH=${{ env.BASE_PATH }})
+        working-directory: artifacts/iroc-website
+        run: pnpm test
+        # The test script is `BASE_PATH=/iroc-website vitest run` — the env var
+        # in the script takes precedence, but it matches the job-level env,
+        # making the intent explicit in both places.
+
+      # ── Staging-base smoke test: validates the dynamic injection path ─────
+      # A second run with a *different* base confirms that changing BASE_PATH
+      # is reflected in the compiled __TEST_BASE_PATH__ constant and that the
+      # base-path-aware routing tests still pass.
+      - name: Run vitest with staging base path (BASE_PATH=/iroc-website-staging)
+        working-directory: artifacts/iroc-website
+        env:
+          BASE_PATH: /iroc-website-staging
+        run: BASE_PATH=/iroc-website-staging pnpm exec vitest run

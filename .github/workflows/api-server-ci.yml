@@ -1,0 +1,57 @@
+# CI for API Server
+#
+# Runs tsc --noEmit (typecheck) and vitest on every push or pull request
+# that touches the api-server package.  This ensures type errors and broken
+# imports in server code are caught before they reach production.
+
+name: API Server CI
+
+on:
+  push:
+    paths:
+      - 'artifacts/api-server/**'
+      - 'lib/**'
+      - '.github/workflows/api-server-ci.yml'
+  pull_request:
+    paths:
+      - 'artifacts/api-server/**'
+      - 'lib/**'
+      - '.github/workflows/api-server-ci.yml'
+
+jobs:
+  ci:
+    name: Typecheck and tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Check CI workflow path filters
+        run: pnpm run check:ci-workflow-paths
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check GitHub Actions workflow syntax
+        run: pnpm run check:ci-workflow-syntax
+
+      # ── Type check ────────────────────────────────────────────────────────
+      # Runs tsc --noEmit in isolation so broken imports or type errors in
+      # server code are surfaced before the build step.
+      - name: Typecheck
+        working-directory: artifacts/api-server
+        run: pnpm typecheck
+
+      # ── Unit / integration tests ──────────────────────────────────────────
+      - name: Run tests
+        working-directory: artifacts/api-server
+        run: pnpm test

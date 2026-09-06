@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "Spirecut",
+    "slug": "spirecut-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "spirecut-mobile",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#C41230"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.spirecut.patient"
+    },
+    "android": {
+      "package": "com.spirecut.patient"
+    },
+    "web": {
+      "favicon": "./assets/images/icon.png"
+    },
+    "plugins": [
+      [
+        "expo-router",
+        {
+          "origin": "https://replit.com/"
+        }
+      ],
+      "expo-font",
+      "expo-web-browser"
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}

@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-card-border: hsl(var(--card-border));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-popover-border: hsl(var(--popover-border));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-primary-border: var(--primary-border);
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-secondary-border: var(--secondary-border);
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-muted-border: var(--muted-border);
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-accent-border: var(--accent-border);
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-destructive-border: var(--destructive-border);
+
+  --font-sans: var(--app-font-sans);
+  
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  /* Spirecut.com brand colors */
+  --background: 36 33% 97%;
+  --foreground: 201 24% 20%;
+  --border: 36 20% 87%;
+  --card: 40 40% 99%;
+  --card-foreground: 201 24% 20%;
+  --card-border: 36 20% 87%;
+  
+  --popover: 40 40% 99%;
+  --popover-foreground: 201 24% 20%;
+  --popover-border: 36 20% 87%;
+  
+  /* Primary = Spirecut Red #C41230 */
+  --primary: 353 61% 43%;
+  --primary-foreground: 0 0% 100%;
+  
+  /* Secondary = dark charcoal for text/headings */
+  --secondary: 201 24% 20%;
+  --secondary-foreground: 0 0% 100%;
+  
+  /* Muted = very light grey */
+  --muted: 36 24% 92%;
+  --muted-foreground: 201 12% 46%;
+  
+  --accent: 151 19% 89%;
+  --accent-foreground: 201 24% 20%;
+  
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 100%;
+  
+  --input: 36 20% 82%;
+  --ring: 353 61% 43%;
+  
+  --app-font-sans: 'DM Sans', sans-serif;
+  --app-font-display: 'Plus Jakarta Sans', sans-serif;
+  --radius: 12px;
+  --button-radius: 12px;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tight;
+    color: hsl(var(--foreground));
+    font-family: var(--app-font-display);
+  }
+}
+
+.app-display { font-family: var(--app-font-display); }
+.app-pressable { transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease, border-color .2s ease; }
+.app-pressable:hover { transform: translateY(-2px); }
+.app-pressable:active { transform: translateY(0) scale(.985); }
+.app-rise { animation: app-rise .55s both; }
+.app-rise-delay { animation: app-rise .55s .12s both; }
+@keyframes app-rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
+
+.rounded-button {
+  border-radius: var(--button-radius);
+}

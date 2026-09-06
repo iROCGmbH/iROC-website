@@ -1,0 +1,84 @@
+# CI for iROC Inventory & Invoicing App
+#
+# BASE_PATH is set explicitly here so the vitest suite exercises the
+# dynamic-injection path (process.env.BASE_PATH → __TEST_BASE_PATH__) rather
+# than silently falling back to the hardcoded '/iroc-app' default.
+#
+# To change the deployment base in the future, update the single
+# BASE_PATH value in the "env" block below.  Both test steps read
+# from that variable, so one edit is all that is needed.
+
+name: iROC App CI
+
+on:
+  push:
+    paths:
+      - 'artifacts/iroc-app/**'
+      - 'lib/api-client-react/**'
+      - 'lib/spirecut-shared/**'
+      - '.github/workflows/iroc-app-ci.yml'
+  pull_request:
+    paths:
+      - 'artifacts/iroc-app/**'
+      - 'lib/api-client-react/**'
+      - 'lib/spirecut-shared/**'
+      - '.github/workflows/iroc-app-ci.yml'
+
+env:
+  # ── Single source of truth for the deployment base path ──────────────────
+  # Update this value when the deployment base changes; both test steps below
+  # inherit it automatically.
+  BASE_PATH: /iroc-app
+
+jobs:
+  ci:
+    name: Typecheck & tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Check CI workflow path filters
+        run: pnpm run check:ci-workflow-paths
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check GitHub Actions workflow syntax
+        run: pnpm run check:ci-workflow-syntax
+
+      - name: Typecheck
+        working-directory: artifacts/iroc-app
+        run: pnpm typecheck
+
+      - name: Lint
+        working-directory: artifacts/iroc-app
+        run: pnpm lint
+
+      # ── Primary test run: production base path ───────────────────────────
+      # BASE_PATH is inherited from the job-level env block above.
+      - name: Run vitest (BASE_PATH=${{ env.BASE_PATH }})
+        working-directory: artifacts/iroc-app
+        run: pnpm test
+        # The test script is `BASE_PATH=/iroc-app vitest run` — the env var
+        # in the script takes precedence, but it matches the job-level env,
+        # making the intent explicit in both places.
+
+      # ── Staging-base smoke test: validates the dynamic injection path ─────
+      # A second run with a *different* base confirms that changing BASE_PATH
+      # is reflected in the compiled __TEST_BASE_PATH__ constant and that the
+      # base-path-aware routing tests still pass.
+      - name: Run vitest with staging base path (BASE_PATH=/iroc-app-staging)
+        working-directory: artifacts/iroc-app
+        env:
+          BASE_PATH: /iroc-app-staging
+        run: BASE_PATH=/iroc-app-staging pnpm exec vitest run

@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/spirecut-patient/"
+title = "Spirecut-patient"
+version = "1.0.0"
+id = "artifacts/spirecut-patient"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/spirecut-patient/" ]
+localPort = 25689
+
+[services.development]
+run = "pnpm --filter @workspace/spirecut-patient run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/spirecut-patient", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/spirecut-patient/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25689"
+BASE_PATH = "/spirecut-patient/"

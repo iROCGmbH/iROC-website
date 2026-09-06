@@ -1,0 +1,1 @@
+console.log('Spirecut now uses the browser-first patient website; no native build is required.');

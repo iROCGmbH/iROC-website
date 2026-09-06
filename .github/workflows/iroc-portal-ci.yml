@@ -1,0 +1,77 @@
+# CI for the iROC Doctor Portal
+#
+# Typecheck and lint are intentionally separate blocking steps. Keeping them
+# before the build makes failures visible as their own CI checks instead of
+# hiding them in a later validation command.
+
+name: iROC Portal CI
+
+on:
+  push:
+    paths:
+      - "artifacts/iroc-portal/**"
+      - "lib/api-client-react/**"
+      - "lib/localized-date-picker/**"
+      - "package.json"
+      - "pnpm-workspace.yaml"
+      - "pnpm-lock.yaml"
+      - "tsconfig.base.json"
+      - "scripts/check-ci-workflow-paths.mjs"
+      - "scripts/check-ci-workflow-syntax.mjs"
+      - "scripts/ci-workflow-paths.mjs"
+      - ".github/workflows/iroc-portal-ci.yml"
+  pull_request:
+    paths:
+      - "artifacts/iroc-portal/**"
+      - "lib/api-client-react/**"
+      - "lib/localized-date-picker/**"
+      - "package.json"
+      - "pnpm-workspace.yaml"
+      - "pnpm-lock.yaml"
+      - "tsconfig.base.json"
+      - "scripts/check-ci-workflow-paths.mjs"
+      - "scripts/check-ci-workflow-syntax.mjs"
+      - "scripts/ci-workflow-paths.mjs"
+      - ".github/workflows/iroc-portal-ci.yml"
+
+jobs:
+  ci:
+    name: Typecheck, lint & build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Check CI workflow path filters
+        run: pnpm run check:ci-workflow-paths
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check GitHub Actions workflow syntax
+        run: pnpm run check:ci-workflow-syntax
+
+      - name: Typecheck
+        working-directory: artifacts/iroc-portal
+        run: pnpm typecheck
+
+      - name: Lint
+        working-directory: artifacts/iroc-portal
+        run: pnpm lint
+
+      - name: Test
+        working-directory: artifacts/iroc-portal
+        run: pnpm test
+
+      - name: Build
+        working-directory: artifacts/iroc-portal
+        run: pnpm build

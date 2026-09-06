@@ -1,0 +1,15 @@
+name: iROC Website CI fixture
+
+on:
+  push:
+    paths:
+      - "artifacts/iroc-website/**"
+      - "lib/api-client-react/**"
+      - "lib/object-storage-web/**"
+      - null
+
+  pull_request:
+    paths:
+      - "artifacts/iroc-website/**"
+      - "lib/api-client-react/**"
+      - "lib/object-storage-web/**"

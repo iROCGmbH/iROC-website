@@ -1,0 +1,17 @@
+name: Invalid YAML fixture
+name: Duplicate workflow name
+
+on:
+  push:
+    paths:
+      - "src/**"
+  pull_request:
+    paths:
+      - "src/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Broken step
+        run: echo "unterminated

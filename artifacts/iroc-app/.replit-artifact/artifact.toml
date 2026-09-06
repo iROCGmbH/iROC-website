@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/iroc-app/"
+title = "iROC-App"
+version = "1.0.0"
+id = "artifacts/iroc-app"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/iroc-app/" ]
+localPort = 21468
+
+[services.development]
+run = "pnpm --filter @workspace/iroc-app run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/iroc-app", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/iroc-app/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21468"
+BASE_PATH = "/iroc-app/"

@@ -1,0 +1,36 @@
+{
+  "name": "workspace",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "preinstall": "sh -c 'rm -f package-lock.json yarn.lock; case \"$npm_config_user_agent\" in pnpm/*) ;; *) echo \"Use pnpm instead\" >&2; exit 1 ;; esac'",
+    "build": "pnpm run check:api-generated && pnpm run typecheck && pnpm --filter @workspace/iroc-website run build && pnpm --filter @workspace/iroc-app run build && pnpm --filter @workspace/iroc-portal run build && pnpm --filter @workspace/spirecut-patient run build && pnpm --filter @workspace/spirecut-mobile-redirect run build && pnpm --filter @workspace/spirecut-mobile run build && pnpm --filter @workspace/api-server run build",
+    "check:api-generated": "pnpm --filter @workspace/api-spec run codegen:check",
+    "check:ci-workflow-paths": "node scripts/check-ci-workflow-paths.mjs",
+    "check:ci-workflow-syntax": "node scripts/check-ci-workflow-syntax.mjs",
+    "check:iroc-website-ci-triggers": "node scripts/check-iroc-website-ci-triggers.mjs",
+    "test:iroc-website-ci-triggers": "pnpm --filter @workspace/scripts run test",
+    "test:e2e:iroc-preview": "pnpm --filter @workspace/spirecut-patient run test:e2e:iroc-preview",
+    "typecheck:libs": "tsc --build",
+    "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck",
+    "test": "pnpm -r --if-present run test"
+  },
+  "private": true,
+  "pnpm": {
+    "overrides": {
+      "react": "19.1.0",
+      "react-dom": "19.1.0",
+      "@types/react": "19.1.17",
+      "@types/react-dom": "19.1.11",
+      "eslint-plugin-react-hooks>zod-validation-error": "4.0.2"
+    }
+  },
+  "dependencies": {
+    "@replit/connectors-sdk": "^0.4.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.5",
+    "typescript": "~5.9.3"
+  }
+}
