@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/spirecut-mobile/"
+title = "Spirecut-mobile"
+description = "An installable browser-based patient companion for Spirecut, with app-style bilingual patient information, guidance, and support."
+version = "1.0.0"
+id = "artifacts/spirecut-mobile-redirect"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/spirecut-mobile/" ]
+localPort = 22870
+
+[services.development]
+run = "pnpm --filter @workspace/spirecut-mobile-redirect run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/spirecut-mobile-redirect", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/spirecut-mobile-redirect/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22870"
+BASE_PATH = "/spirecut-mobile/"

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <url>
+    <loc>https://www.i-roc.de/</loc>
+    <lastmod>2025-07-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.i-roc.de/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.i-roc.de/"/>
+  </url>
+
+  <url>
+    <loc>https://www.i-roc.de/spirecut</loc>
+    <lastmod>2025-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.i-roc.de/spirecut"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.i-roc.de/spirecut"/>
+  </url>
+
+  <url>
+    <loc>https://www.i-roc.de/ministem</loc>
+    <lastmod>2025-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.i-roc.de/ministem"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.i-roc.de/ministem"/>
+  </url>
+
+  <url>
+    <loc>https://www.i-roc.de/team</loc>
+    <lastmod>2025-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.i-roc.de/contact</loc>
+    <lastmod>2025-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.i-roc.de/order</loc>
+    <lastmod>2025-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+</urlset>

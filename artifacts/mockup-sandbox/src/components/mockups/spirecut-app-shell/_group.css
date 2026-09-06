@@ -1,0 +1,76 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap");
+
+/* Tokens and typography copied from the Spirecut patient application. */
+:root {
+  --background: 36 33% 97%;
+  --foreground: 218 27% 19%;
+  --border: 36 20% 87%;
+  --card: 40 40% 99%;
+  --card-foreground: 218 27% 19%;
+  --card-border: 36 20% 87%;
+  --popover: 40 40% 99%;
+  --popover-foreground: 218 27% 19%;
+  --popover-border: 36 20% 87%;
+  --primary: 353 61% 43%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 218 27% 19%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 36 24% 92%;
+  --muted-foreground: 218 12% 46%;
+  --accent: 166 24% 88%;
+  --accent-foreground: 218 27% 19%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 100%;
+  --input: 36 20% 82%;
+  --ring: 353 61% 43%;
+  --app-font-sans: "DM Sans", sans-serif;
+  --app-font-display: "Plus Jakarta Sans", sans-serif;
+  --font-sans: var(--app-font-sans);
+  --radius: 6px;
+  --button-radius: 4px;
+}
+
+.spirecut-app-shell {
+  font-family: var(--app-font-sans);
+  color: hsl(var(--foreground));
+  background: hsl(var(--background));
+}
+
+.spirecut-app-shell h1,
+.spirecut-app-shell h2,
+.spirecut-app-shell h3,
+.spirecut-app-shell h4 {
+  color: hsl(var(--foreground));
+  font-family: var(--app-font-display);
+  letter-spacing: -0.025em;
+}
+
+.spirecut-app-shell .spirecut-logo {
+  font-weight: 800;
+  font-size: 1.7rem;
+  letter-spacing: -0.1em;
+  color: hsl(var(--primary));
+}
+
+.spirecut-app-shell .spirecut-logo small {
+  font-size: 0.48em;
+  letter-spacing: 0.04em;
+  color: hsl(var(--foreground));
+  margin-left: 0.2rem;
+  vertical-align: middle;
+}
+
+.spirecut-app-shell .hero-backdrop {
+  background:
+    radial-gradient(circle at 80% 20%, rgba(196,18,48,.12), transparent 24%),
+    radial-gradient(circle at 10% 90%, rgba(61,135,119,.12), transparent 28%),
+    linear-gradient(135deg, #f8f1e7 0%, #edf2ed 100%);
+}
+
+.spirecut-app-shell .app-display { font-family: var(--app-font-display); }
+.spirecut-app-shell .pressable { transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease, border-color .2s ease; }
+.spirecut-app-shell .pressable:hover { transform: translateY(-2px); }
+.spirecut-app-shell .pressable:active { transform: translateY(0) scale(.985); }
+.spirecut-app-shell .rise-in { animation: spirecut-rise .6s both; }
+.spirecut-app-shell .rise-in-delay { animation: spirecut-rise .6s .12s both; }
+@keyframes spirecut-rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }

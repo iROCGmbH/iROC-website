@@ -1,0 +1,14 @@
+name: Invalid action reference fixture
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Missing action ref
+        uses: actions/checkout
+
+  reusable:
+    uses: octo-org/example/.github/workflows/reusable.yml

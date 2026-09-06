@@ -1,0 +1,32 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "include": ["src/**/*", "src/**/*.test.ts", "src/**/*.test.tsx"],
+  "exclude": [
+    "node_modules",
+    "build",
+    "dist",
+    "dev-dist",
+    "src/components/ui/chart.tsx",
+    "src/components/ui/input-otp.tsx"
+  ],
+  "compilerOptions": {
+    "noEmit": true,
+    "jsx": "preserve",
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "moduleResolution": "bundler",
+    "types": ["node", "vite/client"],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "references": [
+    {
+      "path": "../../lib/api-client-react/tsconfig.json"
+    },
+    {
+      "path": "../../lib/spirecut-shared/tsconfig.json"
+    }
+  ]
+}

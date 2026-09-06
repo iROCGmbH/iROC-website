@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) navigator.serviceWorker.register('/spirecut-patient/dev-sw.js?dev-sw', { scope: '/spirecut-patient/', type: 'classic' })

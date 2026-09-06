@@ -1,0 +1,465 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "findDoctor": "Arzt finden",
+    "praktischeInfo": "Prakt. Informationen",
+    "postop": "Postop. Entwicklung",
+    "faq": "FAQ",
+    "kontakt": "Kontakt",
+    "ct": "Karpaltunnelsyndrom",
+    "tf": "Schnappfinger",
+    "testimonials": "Erfahrungsberichte",
+    "openMenu": "Navigation öffnen"
+  },
+  "footer": {
+    "pages": "Seiten",
+    "legal": "Rechtliches",
+    "sales": "Vertrieb D/AT",
+    "copyright": "© {{year}} Spirecut AG. Alle Rechte vorbehalten. Spirecut® ist ein eingetragenes Warenzeichen.",
+    "certificates": {
+      "swiss": "Swiss Made",
+      "fda": "Bei der FDA registriert",
+      "ce": "CE-Kennzeichnung",
+      "iso": "ISO 13485 zertifiziert",
+      "patented": "Patentierte Technologie"
+    },
+    "links": {
+      "home": "Startseite",
+      "findDoctor": "Arzt finden",
+      "praktischeInfo": "Praktische Informationen",
+      "postop": "Postoperative Entwicklung",
+      "faq": "FAQ",
+      "kontakt": "Kontakt",
+      "ct": "Karpaltunnelsyndrom",
+      "tf": "Schnappfinger",
+      "testimonials": "Erfahrungsberichte",
+      "impressum": "Impressum",
+      "datenschutz": "Datenschutz"
+    }
+  },
+  "doctorBar": {
+    "question": "Sind Sie Arzt oder Ärztin?",
+    "cta": "Zur Ärzteseite →"
+  },
+  "appNav": {
+    "companion": "Ihre Begleitung",
+    "patientArea": "Ihr persönlicher Patientenbereich",
+    "questionsTitle": "Fragen sind willkommen.",
+    "questionsBody": "Speichern Sie diese Seite für später.",
+    "closeMenu": "Navigation schließen"
+  },
+  "hand": {
+    "thumb": "Daumen",
+    "index": "Zeigefinger",
+    "middle": "Mittelfinger",
+    "ring": "Ringfinger",
+    "little": "Kleiner Finger",
+    "wrist": "Handgelenk",
+    "left": "Links",
+    "right": "Rechts",
+    "leftHand": "Linke Hand",
+    "rightHand": "Rechte Hand",
+    "tapHint": "Tippen Sie auf einen Finger oder das Handgelenk, um den operierten Bereich zu markieren.",
+    "remove": "Entfernen"
+  },
+  "legalOnly": {
+    "notice": "Diese Seite ist nur auf Deutsch verfügbar.",
+    "note": "Nur auf Deutsch verfügbar"
+  },
+  "home": {
+    "heroTitle": "Informationen für Patienten über perkutane Handchirurgie",
+    "heroPara1": "Perkutane Handchirurgie ist eine minimalinvasive Technik zur Behandlung häufiger Beschwerden wie dem Karpaltunnelsyndrom und dem Schnappfinger.",
+    "heroPara2": "Mit speziellen Instrumenten von Spirecut und unter Ultraschallkontrolle können Chirurgen diese Eingriffe mit hoher Sicherheit und ohne Hautschnitt durchführen.",
+    "heroPara3": "Diese Website bietet klare Informationen über die Eingriffe und hilft Patienten, sich auf den chirurgischen und postoperativen Prozess vorzubereiten.",
+    "ctaPraktisch": "Praktische Informationen",
+    "ctaArzt": "Arzt finden",
+    "whatTitle": "Was ist perkutane Handchirurgie?",
+    "whatPara1": "Das Spirecut-Verfahren ist eine <strong>perkutane</strong> (lat. „durch die Haut”) Methode. Der gesamte Eingriff erfolgt durch einen Nadelstich – er heilt innerhalb eines Tages, ohne Naht.",
+    "whatPara2": "Die Behandlung erfolgt unter <strong>Ultraschall</strong>, wie bei einer Schwangerschaftsuntersuchung. Dies ermöglicht dem Chirurgen, Nerven, Blutgefäße und Bänder in der Hand deutlich besser zu sehen als bei einer offenen Operation.",
+    "whatPara3": "Die Spirecut-Instrumente haben einen Durchmesser von nur <strong>1,5 mm</strong> und werden durch den Nadelstich eingeführt, um das einengende Band zu lösen.",
+    "advantagesTitle": "Was sind die Vorteile?",
+    "advantages": [
+      "Kein Hautschnitt",
+      "Kein Verband oder Narbe nach dem Eingriff",
+      "Unmittelbare Rückkehr in den Alltag",
+      "Spezifisches Instrument für zwei häufige Handbeschwerden: Karpaltunnelsyndrom und Schnappfinger"
+    ],
+    "quote": "„Spirecut ist ein Schweizer Unternehmen, das Instrumente entwickelt hat, die ultraschallgeführte Eingriffe ohne Hautschnitt ermöglichen – basierend auf der Erfindung des belgischen Chirurgen Prof. Fabian Moungondo.”",
+    "conditionsTitle": "Behandelte Beschwerden",
+    "ctTitle": "Karpaltunnelsyndrom",
+    "ctDesc": "Kribbeln, Taubheit oder Schmerzen in den Fingern? Das Spirecut-Sono-Instrument durchtrennt sanft und präzise das einengende Querband des Karpaltunnels.",
+    "tfTitle": "Schnappfinger (Triggerfinger)",
+    "tfDesc": "Ein Finger blockiert oder schnappt beim Beugen? Die Ringbandspaltung mit Spirecut befreit die Sehne präzise unter Ultraschall – ohne Skalpell.",
+    "learnMore": "Mehr erfahren",
+    "feedbackStrip": "⭐ {{rating}} / 5 — {{count}} Patienten haben ihr Ergebnis bewertet",
+    "dashboardOverview": "Ihr Überblick",
+    "dashboardOverviewBody": "Alles Wichtige, ruhig erklärt.",
+    "dashboardLearn": "Informieren",
+    "dashboardLearnBody": "Beschwerden besser verstehen",
+    "dashboardAnytime": "Jederzeit",
+    "dashboardPrompt": "Nicht sicher, wo Sie anfangen sollen?",
+    "dashboardExplore": "Beschwerden ansehen",
+    "testimonialsTitle": "Was unsere Patienten sagen",
+    "instrumentCtAlt": "Spirecut Instrument für das Karpaltunnelsyndrom",
+    "instrumentTfAlt": "Spirecut Instrument für Schnappfinger",
+    "ctInstrumentAlt": "Spirecut Instrument für das Karpaltunnelsyndrom",
+    "tfInstrumentAlt": "Spirecut Instrument für Schnappfinger"
+  },
+  "ct": {
+    "badge": "Patienteninformation",
+    "heroTitle": "Karpaltunnelsyndrom: Sanfte Behandlung ohne Operation",
+    "heroDesc": "Kribbeln in den Fingern, Schmerzen in der Nacht und Taubheitsgefühle? Das Spirecut®-Verfahren bietet eine schnelle, minimalinvasive Lösung.",
+    "findDoctor": "Zertifizierten Arzt finden",
+    "whatTitle": "Was ist das Karpaltunnelsyndrom?",
+    "whatDesc": "Der Karpaltunnel ist ein enger Kanal im Bereich der Handwurzel, durch den Sehnen und der mittlere Armnerv (Nervus medianus) verlaufen. Wenn das Gewebe im Karpaltunnel anschwillt oder der Platz zu eng wird, drückt dies auf den Nerv.",
+    "symptomsTitle": "Typische Symptome",
+    "symptoms": [
+      "Nächtliches Einschlafen der Hand",
+      "Kribbeln in Daumen, Zeige- und Mittelfinger",
+      "Schmerzen, die bis in den Arm ausstrahlen können",
+      "Morgendliche Steifigkeit der Finger",
+      "Schwäche beim Greifen",
+      "Verlust des Tastgefühls"
+    ],
+    "treatmentTitle": "Die Spirecut® Behandlung",
+    "treatmentSubtitle": "Warum das neue Verfahren für Patienten so vorteilhaft ist.",
+    "classicTitle": "Klassische Operation",
+    "classicItems": [
+      "Schnitt in der Handfläche (ca. 2–3 cm)",
+      "Dauerhafte, sichtbare Narbe",
+      "Längere Heilungsphase (oft Wochen)",
+      "Narbenbeschwerden möglich",
+      "Gips oder Schiene häufig notwendig"
+    ],
+    "modernBadge": "Die moderne Alternative",
+    "modernTitle": "Spirecut® Methode",
+    "modernItems": [
+      [
+        "Kein Schnitt",
+        "Zugang über eine winzige Punktion"
+      ],
+      [
+        "Keine Narbe",
+        "Perfektes kosmetisches Ergebnis"
+      ],
+      [
+        "Schnelle Heilung",
+        "Alltag oft am nächsten Tag möglich"
+      ],
+      [
+        "Ultraschallkontrolle",
+        "Maximale Sicherheit während des Eingriffs"
+      ],
+      [
+        "Kein Gips",
+        "Nur ein kleines Pflaster"
+      ]
+    ],
+    "ctaTitle": "Möchten Sie wieder schmerzfrei greifen?",
+    "ctaDesc": "Lassen Sie sich von einem zertifizierten Facharzt beraten, ob die Spirecut-Behandlung für Sie in Frage kommt.",
+    "findNearby": "Arzt in der Nähe finden",
+    "howItWorks": "Wie der Eingriff abläuft",
+    "heroImageAlt": "Behandlung des Karpaltunnelsyndroms"
+  },
+  "tf": {
+    "badge": "Patienteninformation",
+    "heroTitle": "Schnappfinger (Triggerfinger): Befreiung ohne Schnitt",
+    "heroDesc": "Ihr Finger blockiert, schnappt oder schmerzt beim Beugen? Mit Spirecut® wird die einengende Stelle sanft und präzise gelöst – ohne herkömmliche Operation.",
+    "findDoctor": "Zertifizierten Arzt finden",
+    "whatTitle": "Was ist ein Schnappfinger?",
+    "whatDesc": "Der Schnappfinger (auch Triggerfinger oder Tendovaginitis stenosans) entsteht durch eine Verdickung der Beugesehne oder des Ringbandes. Die Sehne kann nicht mehr reibungslos gleiten und verhakt sich. Beim Versuch, den Finger zu strecken, löst sich die Blockade oft plötzlich und ruckartig.",
+    "symptomsTitle": "Typische Symptome",
+    "symptoms": [
+      "Schmerzhaftes Schnappen beim Beugen oder Strecken",
+      "Ein kleiner, schmerzhafter Knoten an der Handfläche",
+      "Morgensteifigkeit im betroffenen Finger",
+      "Der Finger bleibt in gebeugter Position hängen",
+      "Schmerzen an der Basis des betroffenen Fingers"
+    ],
+    "treatmentTitle": "Die Ringbandspaltung mit Spirecut®",
+    "treatmentSubtitle": "Die moderne, minimalinvasive Alternative zur offenen Handchirurgie.",
+    "classicTitle": "Klassische Operation",
+    "classicItems": [
+      "Hautschnitt in der Handfläche (Ringbandspaltung)",
+      "Naht und Verband erforderlich",
+      "Gefahr schmerzhafter Narben in der Greiffläche",
+      "Eingeschränkte Handnutzung für Wochen"
+    ],
+    "modernBadge": "Die Spirecut Methode",
+    "modernTitle": "Sono-Instrument",
+    "modernItems": [
+      [
+        "Kein Skalpell",
+        "Nur ein winziger Nadeleinstich"
+      ],
+      [
+        "Unter Ultraschall",
+        "Millimetergenaue Spaltung des Bandes"
+      ],
+      [
+        "Sofortige Bewegung",
+        "Der Finger ist oft sofort wieder frei beweglich"
+      ],
+      [
+        "Keine Nähte",
+        "Nur ein Pflaster, kein lästiger Verband"
+      ]
+    ],
+    "ctaTitle": "Bereit für einen schnappfreien Alltag?",
+    "ctaDesc": "Das Spirecut-Verfahren wird ambulant durchgeführt und dauert nur wenige Minuten.",
+    "findNearby": "Arzt in der Nähe finden",
+    "watchVideo": "Video des Eingriffs ansehen",
+    "heroImageAlt": "Behandlung eines Schnappfingers"
+  },
+  "how": {
+    "heroTitle": "So funktioniert die Spirecut® Behandlung",
+    "heroDesc": "Ein medizinischer Durchbruch: Sicher, präzise und vollständig ohne offenen Hautschnitt dank modernster Ultraschall-Technologie.",
+    "steps": [
+      {
+        "step": "01",
+        "title": "Diagnostik und Aufklärung",
+        "desc": "Zunächst untersucht der Arzt Ihre Hand mit einem hochauflösenden Ultraschallgerät. Er stellt die genaue Ursache fest und bespricht mit Ihnen den Eingriff im Detail."
+      },
+      {
+        "step": "02",
+        "title": "Örtliche Betäubung",
+        "desc": "Der Eingriff erfolgt ambulant in der Praxis. Die betreffende Stelle an der Hand wird lokal betäubt. Sie sind wach, verspüren aber während des Eingriffs keine Schmerzen."
+      },
+      {
+        "step": "03",
+        "title": "Der Eingriff unter Ultraschall",
+        "desc": "Das feine Spirecut-Instrument wird durch eine winzige Einstichstelle eingeführt. Der Arzt verfolgt jeden Schritt live auf dem Ultraschallbild. Das einengende Band wird präzise durchtrennt – das umliegende Gewebe und die Nerven bleiben geschont."
+      },
+      {
+        "step": "04",
+        "title": "Nach der Behandlung",
+        "desc": "Es ist keine Naht erforderlich. Die Einstichstelle wird lediglich mit einem kleinen Pflaster abgedeckt. Sie können die Praxis kurz danach verlassen und Ihre Hand oft schon am nächsten Tag wieder für alltägliche Dinge nutzen."
+      }
+    ],
+    "videoTitle": "Machen Sie sich selbst ein Bild",
+    "videoDesc": "In diesen Videos erklären Fachärzte den Ablauf und die Vorteile der Spirecut-Methode bei Karpaltunnelsyndrom und Schnappfinger.",
+    "videoMethod": "Die Spirecut Methode",
+    "videoTF": "Behandlung Schnappfinger",
+    "videoMethodIframeTitle": "Spirecut Operationsmethode",
+    "videoTFIframeTitle": "Spirecut Behandlung eines Schnappfingers",
+    "videoUnavailable": "Video momentan nicht verfügbar",
+    "ctaTitle": "Überzeugt? Finden Sie jetzt einen Arzt.",
+    "ctaDesc": "Alle zertifizierten Praxen in Deutschland und Österreich auf einen Blick.",
+    "ctaBtn": "Zertifizierte Praxen anzeigen"
+  },
+  "findDoctor": {
+    "heroTitle": "Arzt finden",
+    "heroDesc": "Das Spirecut-Verfahren wird ausschließlich von speziell geschulten Ärzten durchgeführt. Finden Sie hier eine zertifizierte Praxis in Ihrer Nähe.",
+    "germany": "Deutschland",
+    "austria": "Österreich",
+    "practiceWebsite": "Zur Praxis-Website",
+    "loading": "Ärzte werden geladen…",
+    "error": "Die Arztliste konnte momentan nicht geladen werden. Bitte versuchen Sie es später erneut.",
+    "otherCountries": "Weitere Länder",
+    "zipLabel": "Postleitzahl",
+    "zipPlaceholder": "z. B. 52062",
+    "radiusLabel": "Umkreis",
+    "radiusAll": "Alle",
+    "countryLabel": "Land",
+    "countryAll": "Alle Länder",
+    "searchBtn": "Suchen",
+    "clearSearch": "Suche zurücksetzen",
+    "zipNotFound": "Diese Postleitzahl konnte nicht gefunden werden. Bitte prüfen Sie die Eingabe.",
+    "resultsSummary": "{{count}} Praxis/Praxen im Umkreis von {{radius}} km um PLZ {{zip}}",
+    "noResults": "Keine Praxen im Umkreis von {{radius}} km um PLZ {{zip}} gefunden.",
+    "noResultsHint": "Versuchen Sie einen größeren Umkreis oder ein anderes Land."
+  },
+  "praktisch": {
+    "title": "Praktische Informationen",
+    "intro": "Ihr Arzt hat Ihnen einen ultraschallgeführten perkutanen Eingriff nach der Spirecut-Methode angesetzt. Wir möchten Ihnen erklären, wie der Eingriff ablaufen wird und was Sie danach erwarten können. Bitte beachten Sie: Abhängig von Ihrer individuellen Situation, der Organisation der Praxis und der Erfahrung Ihres Arztes kann es geringfügige oder erhebliche Abweichungen von diesen allgemeinen Informationen geben. Befolgen Sie stets die Empfehlungen und Anweisungen Ihres behandelnden Arztes.",
+    "generalTitle": "Allgemeine Informationen",
+    "generalIntro": "Der Eingriff, den Sie erhalten werden, ist perkutan, ultraschallgeführt und wird mit der Spirecut-Technik durchgeführt. Was bedeuten diese Begriffe?",
+    "percutaneous": "1) Perkutan",
+    "percutaneousDesc": "Das gesamte Verfahren wird durch einen Nadelstich durchgeführt, der am Tag nach der Operation verheilt ist. Der Stich ist in seiner Größe mit einer intravenösen Nadel zur Blutabnahme vergleichbar. Daher benötigen Sie am Tag nach dem Eingriff keine weitere Wundversorgung, Sie können Ihre Hand waschen und alle normalen Aktivitäten wieder aufnehmen. Es gibt keine Nähte zu entfernen.",
+    "ultrasound": "2) Ultraschallgeführt",
+    "ultrasoundDesc": "Der Eingriff wird mit Ultraschall geleitet (dasselbe Gerät wie zur Überwachung der fetalen Entwicklung in der Schwangerschaft, aber mit einer anderen Sonde). Dies ermöglicht es dem Chirurgen, Nerven, Blutgefäße und Bänder in der Hand oft besser zu sehen als bei einer konventionellen offenen Operation.",
+    "spirecut": "3) Spirecut",
+    "spirecutDesc": "Spirecut ist ein Schweizer Unternehmen, das Instrumente entwickelt hat, die ultraschallgeführte Eingriffe ohne Hautschnitt ermöglichen, basierend auf der Erfindung des belgischen Chirurgen Professor Fabian Moungondo. Die Spirecut-Instrumente sind sehr fein (Durchmesser: 1,5 mm) und werden durch den Nadelstich eingeführt, um das Ligament zu lösen, das Ihren Nerv oder Ihre Sehne komprimiert.",
+    "beforeTitle": "Vor dem Eingriff",
+    "beforeIntro": "Die meisten Eingriffe dieser Art erfordern keine spezifische Vorbereitung. Dennoch gelten einige wichtige Punkte:",
+    "beforeItems": [
+      "Falls Sie Blutverdünner einnehmen (z. B. Aspirin, Plavix, Xarelto, Eliquis, Pradaxa), informieren Sie Ihren Arzt im Voraus. Es kann je nach Medikament und Dosierung eine Anpassung erforderlich sein.",
+      "Es ist keine Vollnarkose erforderlich. Sie müssen daher nicht nüchtern erscheinen, es sei denn, Ihr Arzt weist Sie ausdrücklich darauf hin.",
+      "Planen Sie, jemanden mitzubringen oder ein Taxi zu nehmen, falls Sie sich durch die Lokalanästhesie unwohl fühlen."
+    ],
+    "anaesthesiaTitle": "Anästhesie",
+    "anaesthesiaDesc": "Der Eingriff wird unter Lokalanästhesie durchgeführt. Ihr Arzt injiziert ein Betäubungsmittel rund um die betroffene Region. Die Injektion selbst kann kurz unangenehm sein, aber nach wenigen Minuten sollten Sie kaum noch etwas spüren. Sie sind während des Eingriffs wach, aber ohne Schmerzen in der Hand.",
+    "duringTitle": "Während des Eingriffs",
+    "duringPara1": "Der Chirurg führt das Spirecut-Instrument durch einen Nadelstich ein. Unter kontinuierlicher Ultraschallkontrolle wird das einengende Band präzise durchtrennt. Das Verfahren dauert in der Regel nur wenige Minuten.",
+    "duringPara2": "Dank des Ultraschalls kann der Chirurg sicherstellen, dass alle wichtigen Strukturen (Nerven, Gefäße) geschont werden. Das Risiko einer Nervenverletzung ist damit noch geringer als bei einer offenen Operation.",
+    "afterTitle": "Nach dem Eingriff",
+    "afterItems": [
+      [
+        "Tag 0 (Tag des Eingriffs):",
+        "Die Einstichstelle wird mit einem kleinen Pflaster abgedeckt. Sie können die Praxis kurz nach dem Eingriff verlassen. Vermeiden Sie in den ersten Stunden nasse Hände und körperliche Belastung."
+      ],
+      [
+        "Tag 1:",
+        "Das Pflaster kann entfernt werden. Sie können Ihre Hand waschen und normale Alltagsaktivitäten aufnehmen."
+      ],
+      [
+        "Schmerzen:",
+        "Manche Patienten berichten über leichte Schmerzen in den ersten Tagen. Frei verkäufliche Schmerzmittel (z. B. Ibuprofen) können bei Bedarf eingenommen werden."
+      ],
+      [
+        "Nachkontrolle:",
+        "Ihr Arzt wird Ihnen mitteilen, wann und ob eine Nachkontrolle erforderlich ist."
+      ],
+      [
+        "Kontaktieren Sie Ihren Arzt,",
+        "wenn Sie starke Schmerzen, Schwellungen, Fieber oder Rötungen an der Einstichstelle bemerken."
+      ]
+    ],
+    "videosTitle": "Informationsvideos",
+    "video1Title": "Video 1",
+    "video2Title": "Video 2"
+  },
+  "postop": {
+    "title": "Teilen Sie Ihren postoperativen Verlauf",
+    "para1": "Patientenrückmeldungen sind äußerst wertvoll, um das medizinische Wissen und die Patientenversorgung zu verbessern.",
+    "para2": "Wenn Sie sich einem Eingriff mit dieser Technik unterzogen haben, können Sie Ihre postoperativen Erfahrungen anonym teilen.",
+    "para3": "Alle gesammelten Informationen werden streng vertraulich behandelt und ausschließlich für medizinische Evaluations- und Forschungszwecke verwendet.",
+    "whyTitle": "Warum Ihr Feedback wichtig ist",
+    "whyItems": [
+      "Hilft künftigen Patienten, fundierte Entscheidungen zu treffen",
+      "Unterstützt die kontinuierliche Verbesserung der Technik",
+      "Trägt zur medizinischen Forschung bei",
+      "Anonym und vollständig vertraulich"
+    ],
+    "procedureLabel": "Welcher Eingriff wurde durchgeführt?",
+    "procedurePlaceholder": "Bitte wählen…",
+    "procedureCT": "Karpaltunnelsyndrom",
+    "procedureTF": "Schnappfinger (Triggerfinger)",
+    "procedureBoth": "Beide",
+    "handLabel": "Welche Hand / welcher Bereich wurde operiert?",
+    "handOptional": "(optional)",
+    "monthLabel": "Wann wurde der Eingriff durchgeführt?",
+    "ratingLabel": "Wie beurteilen Sie das Ergebnis?",
+    "ratingHint": "(1 = sehr schlecht, 5 = ausgezeichnet)",
+    "optionalDivider": "Optionale Angaben — helfen uns, Zusammenhänge besser zu verstehen",
+    "ageLabel": "Altersgruppe",
+    "ageSuffix": "Jahre",
+    "genderLabel": "Geschlecht",
+    "genders": {
+      "male": "Männlich",
+      "female": "Weiblich",
+      "divers": "Divers"
+    },
+    "occupationLabel": "Berufliche Tätigkeit",
+    "occupations": {
+      "handworker": "Handwerker/in",
+      "office": "Bürotätigkeit",
+      "retired": "Rentner/in / Nicht berufstätig"
+    },
+    "diseasesLabel": "Vorerkrankungen",
+    "diseases": {
+      "diabetes": "Diabetes Mellitus",
+      "cholesterol": "Hypercholesterinämie",
+      "bloodpressure": "Bluthochdruck",
+      "other_metabolic": "Andere Stoffwechselerkrankung"
+    },
+    "experienceLabel": "Ihre Erfahrung",
+    "experienceHint": "optional",
+    "experiencePlaceholder": "Beschreiben Sie Ihren Heilungsverlauf…",
+    "shareQuoteLabel": "Ich stimme zu, dass mein Erfahrungsbericht anonym auf dieser Website veröffentlicht wird.",
+    "shareQuoteHint": "Ihr Name und alle persönlichen Angaben werden nicht angezeigt. Nur Ihr Text, das Verfahren und die Bewertung werden geteilt.",
+    "privacyNote": "Ihre Antworten werden anonym gespeichert. Es werden keine personenbezogenen Daten erhoben.",
+    "captchaTitle": "Sicherheitsprüfung",
+    "captchaLabel": "Was ist <bold>{{a}} + {{b}}</bold>?",
+    "captchaPlaceholder": "Antwort",
+    "captchaError": "Falsche Antwort – bitte versuchen Sie es erneut.",
+    "submitError": "Übermittlung fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "sending": "Wird gesendet…",
+    "submit": "Anonym absenden",
+    "successTitle": "Vielen Dank!",
+    "successMsg": "Ihre Erfahrung wurde anonym übermittelt.",
+    "stats": {
+      "eyebrow": "Patientenrückmeldungen",
+      "title": "Was berichten andere Patienten?",
+      "basedOn": "Basierend auf {{count}} anonymen Rückmeldungen",
+      "avgRating": "Durchschnittliche Bewertung",
+      "totalSubmissions": "Rückmeldungen",
+      "patientsFeedback": "Patienten haben ihr Ergebnis bewertet",
+      "byProcedure": "Nach Eingriff",
+      "ratingDist": "Bewertungsverteilung",
+      "quotesTitle": "Erfahrungsberichte",
+      "anonymousPatient": "Anonymer Patient"
+    }
+  },
+  "faq": {
+    "heroTitle": "Häufige Fragen",
+    "heroDesc": "Alles, was Patienten vor dem Eingriff wissen möchten.",
+    "notFound": "Ihre Frage war nicht dabei?",
+    "notFoundDesc": "Ein zertifizierter Arzt kann Ihnen in einem persönlichen Beratungsgespräch alle weiteren Fragen zur Methode und zu Ihrer individuellen Situation beantworten.",
+    "contactDoctor": "Arzt kontaktieren",
+    "items": [
+      {
+        "q": "Ist Spirecut® schmerzhaft?",
+        "a": "Nein. Der Eingriff wird unter örtlicher Betäubung (Lokalanästhesie) durchgeführt. Sie spüren während des Eingriffs keinen Schmerz, sondern allenfalls ein leichtes Druckgefühl. Nach dem Eingriff berichten die meisten Patienten von deutlich geringeren Schmerzen im Vergleich zu einer offenen Operation."
+      },
+      {
+        "q": "Wie lange dauert der Eingriff?",
+        "a": "Das eigentliche Spirecut-Verfahren dauert meist nur wenige Minuten. Mit Vorbereitung, Ultraschalluntersuchung und Betäubung sollten Sie für den gesamten Aufenthalt in der Praxis etwa 30 bis 45 Minuten einplanen."
+      },
+      {
+        "q": "Wann kann ich die Hand wieder normal benutzen?",
+        "a": "Da kein großer Schnitt gemacht wird und keine Nähte nötig sind, heilt die Hand deutlich schneller. Viele Patienten können alltägliche Tätigkeiten (wie Anziehen oder leichte Büroarbeiten) oft schon am nächsten Tag wieder ausführen. Schwere körperliche Belastungen sollten Sie jedoch einige Tage meiden."
+      },
+      {
+        "q": "Brauche ich eine Überweisung?",
+        "a": "Ob Sie eine Überweisung benötigen, hängt von Ihrer Krankenversicherung und dem jeweiligen Facharzt ab. Die meisten der zertifizierten Praxen können Sie direkt kontaktieren. Bei Privatpraxen benötigen Sie in der Regel keine Überweisung."
+      },
+      {
+        "q": "Ist Spirecut® von der Krankenkasse erstattet?",
+        "a": "Spirecut ist ein hochmodernes Verfahren, dessen Erstattung variieren kann. Private Krankenversicherungen übernehmen die Kosten in der Regel vollständig. Bei gesetzlich Versicherten hängt es von der individuellen Kasse und Praxis ab – oft wird es als Selbstzahlerleistung (IGeL) abgerechnet. Bitte fragen Sie direkt in der Praxis nach den genauen Kosten und Erstattungsmöglichkeiten."
+      },
+      {
+        "q": "Was sind die Risiken?",
+        "a": "Wie bei jedem medizinischen Eingriff gibt es auch bei Spirecut Risiken wie leichte Blutungen oder in sehr seltenen Fällen Infektionen. Durch die ständige Ultraschallkontrolle ist das Risiko, Nerven oder Gefäße zu verletzen, äußerst gering – noch geringer als bei der offenen Operation, da der Arzt das Gewebe live auf dem Bildschirm sieht."
+      },
+      {
+        "q": "Bleibt eine Narbe zurück?",
+        "a": "Das ist einer der größten Vorteile: Das Instrument ist so fein, dass nur ein kleiner Stich wie bei einer Nadel entsteht (ca. 1 mm). Es wird nicht geschnitten und nicht genäht. Daher bleibt keine sichtbare oder störende Narbe in der Handfläche zurück."
+      }
+    ]
+  },
+  "kontakt": {
+    "eyebrow": "Haben Sie Fragen?",
+    "title": "Schreiben Sie uns!",
+    "manufacturer": "Hersteller",
+    "formTitle": "Nachricht senden",
+    "name": "Name / Firma",
+    "email": "E-Mail",
+    "phone": "Telefonnummer",
+    "message": "Nachricht",
+    "messagePlaceholder": "Ihre Frage oder Anliegen…",
+    "submitError": "Übermittlung fehlgeschlagen. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt an info@spirecut.com.",
+    "sending": "Wird gesendet…",
+    "submit": "Absenden",
+    "successTitle": "Vielen Dank!",
+    "successMsg": "Ihre Nachricht wurde erfolgreich übermittelt. Wir melden uns in Kürze bei Ihnen."
+  },
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "desc": "Die von Ihnen gesuchte Seite existiert nicht oder wurde verschoben.",
+    "back": "Zurück zur Startseite"
+  },
+  "loading": {
+    "page": "Seite wird geladen"
+  },
+  "testimonials": {
+    "heroTitle": "Patientenerfahrungen",
+    "heroDesc": "Erfahren Sie aus erster Hand, wie Patienten den Eingriff und die Genesung erlebt haben.",
+    "empty": "Derzeit sind noch keine Erfahrungsberichte verfügbar.",
+    "error": "Fehler beim Laden der Erfahrungsberichte. Bitte versuchen Sie es später erneut.",
+    "procedureLabel": "Eingriff:",
+    "procedureCT": "Karpaltunnelsyndrom",
+    "procedureTF": "Schnappfinger",
+    "patientLabel": "Patient:"
+  }
+}

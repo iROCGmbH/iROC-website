@@ -1,0 +1,51 @@
+name: iROC Published Routing
+
+on:
+  deployment_status:
+  workflow_dispatch:
+    inputs:
+      published_origin:
+        description: Published iROC origin, including https://
+        required: true
+        type: string
+
+jobs:
+  hard-reload:
+    name: Published 404 recovery
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.deployment_status.state == 'success' &&
+       github.event.deployment_status.environment_url != '')
+    runs-on: ubuntu-latest
+    env:
+      PLAYWRIGHT_MOUNTED_BASE_URL: ${{ github.event.inputs.published_origin || github.event.deployment_status.environment_url }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate checked-in workflow syntax
+        run: pnpm run check:ci-workflow-syntax
+
+      - name: Install Chromium
+        run: pnpm --filter @workspace/spirecut-patient exec playwright install --with-deps chromium
+
+      - name: Verify published iROC app shells and NotFound pages
+        env:
+          PLAYWRIGHT_BASE_URL: ${{ env.PLAYWRIGHT_MOUNTED_BASE_URL }}
+        run: >-
+          pnpm --filter @workspace/spirecut-patient exec playwright test
+          --config playwright.config.js
+          e2e/iroc-apps-not-found-hard-reload.spec.js
+          --reporter=list

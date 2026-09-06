@@ -1,0 +1,8 @@
+{
+  "name": "@workspace/iroc-website-ci-trigger-fixture",
+  "private": true,
+  "dependencies": {
+    "@workspace/api-client-react": "workspace:*",
+    "@workspace/object-storage-web": "workspace:*"
+  }
+}

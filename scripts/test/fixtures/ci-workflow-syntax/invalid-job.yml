@@ -1,0 +1,9 @@
+name: Invalid job fixture
+
+on:
+  push:
+
+jobs:
+  build:
+    steps:
+      - run: echo "missing runner"
